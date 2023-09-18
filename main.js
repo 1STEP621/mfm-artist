@@ -72,11 +72,11 @@ addEventListener("DOMContentLoaded", () => {
               </div>
               <div class="object-setting-group">
                 <div>文字色:<input type="color" value="#c7d1d8" class="setting-fg"></div>
-                <label>デフォルトを使用する:<input type="checkbox" class="setting-fg-default" checked></label>
+                <label><input type="checkbox" class="setting-fg-default" checked>デフォルトを使用する</label>
               </div>
               <div class="object-setting-group">
-                <div>文字色:<input type="color" value="#2d2d2d" class="setting-bg"></div>
-                <label>デフォルトを使用する:<input type="checkbox" class="setting-bg-default" checked></label>
+                <div>背景色:<input type="color" value="#2d2d2d" class="setting-bg"></div>
+                <label><input type="checkbox" class="setting-bg-default" checked>デフォルトを使用する</label>
               </div>
           </div>
         </div>`);

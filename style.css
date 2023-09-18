@@ -1,5 +1,6 @@
 .button {
   cursor: pointer;
+  user-select: none;
 }
 
 #add {
@@ -14,6 +15,9 @@
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 20px;
+  resize: vertical;
+  overflow: auto;
+  scrollbar-gutter: stable;
 }
 
 #preview {
