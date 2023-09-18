@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://1step621.github.io/StyleSheet.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://1step621.github.io/JavaScript.js"></script>
+  <script src="main.js"></script>
+  <title>MFM-Artist | 1STEP621のホームページ</title>
+</head>
+
+<body>
+  <div id="header"></div>
+  <div class="wrapper">
+    <h1>MFM-Artist</h1>
+    <p>MFMを簡単に生成するツールです。</p>
+    <div id="domain-wrapper">
+      <form id="domain-input-wrapper">
+        <textarea rows="1" placeholder="Misskeyサーバーのドメインを入力(例: misskey.io)" id="domain"></textarea>
+        <a class="button block-link" id="go">Go</a>
+      </form>
+      <p class="text-box" id="message">絵文字取得に使用します。</p>
+    </div>
+    <div id="main-wrapper" hidden>
+      <h2>オブジェクト</h2>
+      <div id="objects-wrapper">
+        <div id="objects"></div>
+        <a class="button block-link" id="add">追加</a>
+      </div>
+      <h2>プレビュー</h2>
+      <div id="preview"></div>
+      <h2>生成MFM</h2>
+      <p id="result" class="text-box"></p>
+    </div>
+  </div>
+  <div id="footer"></div>
+</body>
+
+</html>
