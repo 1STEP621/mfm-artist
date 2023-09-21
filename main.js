@@ -496,6 +496,14 @@ addEventListener("DOMContentLoaded", () => {
           objectElem.appendChild(elem);
         }
       });
+      objectElem = nestAndSetStyle(objectElem, [["fontWeight", value.isBold ? "bold" : null]]);
+      objectElem = nestAndSetStyle(objectElem, [["textDecoration", value.isStrike ? "line-through" : null]]);
+      objectElem = nestAndSetStyle(objectElem, [["fontStyle", value.isItalic ? "italic" : null]]);
+      objectElem = nestAndSetStyle(objectElem, [["color", value.fgDefault ? null : value.fg]]);
+      objectElem = nestAndSetStyle(objectElem, [["backgroundColor", value.bgDefault ? null : value.bg]]);
+      objectElem = nestAndSetStyle(objectElem, [["transform", `scale(${value.sizeX}, ${value.sizeY})`]]);
+      objectElem = nestAndSetStyle(objectElem, [["transform", `translate(${value.x}em, ${value.y}em)`]]);
+      objectElem = nestAndSetStyle(objectElem, [["fontFamily", value.font || null]]);
       value.effects.forEach((effect) => {
         const prop = effectsData[effect.type]?.cssProp;
         let val = effectsData[effect.type]?.cssVal;
@@ -554,20 +562,12 @@ addEventListener("DOMContentLoaded", () => {
             break;
           default:
             return;
-        }
+          }
         objectElem = nestAndSetStyle(objectElem, [[prop, val]]);
-      });
-      objectElem = nestAndSetStyle(objectElem, [["color", value.fgDefault ? null : value.fg]]);
-      objectElem = nestAndSetStyle(objectElem, [["backgroundColor", value.bgDefault ? null : value.bg]]);
-      objectElem = nestAndSetStyle(objectElem, [["transform", `scale(${value.sizeX}, ${value.sizeY})`]]);
-      objectElem = nestAndSetStyle(objectElem, [["transform", `translate(${value.x}em, ${value.y}em)`]]);
-      objectElem = nestAndSetStyle(objectElem, [["fontWeight", value.isBold ? "bold" : null]]);
-      objectElem = nestAndSetStyle(objectElem, [["textDecoration", value.isStrike ? "line-through" : null]]);
-      objectElem = nestAndSetStyle(objectElem, [["fontStyle", value.isItalic ? "italic" : null]]);
-      objectElem = nestAndSetStyle(objectElem, [["fontFamily", value.font || null]]);
-      objectElem = nestAndSetStyle(objectElem, [["textAlign", value.isCenter ? "center" : null], ["display", "block"]]);
-      objectElem = nest(objectElem);
-      previewElem.appendChild(objectElem);
+        });
+        objectElem = nestAndSetStyle(objectElem, [["textAlign", value.isCenter ? "center" : null], ["display", "block"]]);
+        objectElem = nest(objectElem);
+        previewElem.appendChild(objectElem);
     });
   }
   
