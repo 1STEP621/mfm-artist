@@ -6,40 +6,46 @@ addEventListener("DOMContentLoaded", () => {
   const messageElem = document.getElementById("message");
   const effectsData = {
     tada: {
-      cssProp: "animation",
-      cssVal: "tada {speed}s linear infinite",
+      cssProps: {
+        "font-size": "150%",
+        "animation": "tada {speed}s linear infinite",
+      },
       attrs: ["speed"],
       defaults: {
         speed: 1,
       }
     },
     jelly: {
-      cssProp: "animation",
-      cssVal: "jelly {speed}s linear infinite",
+      cssProps: {
+        "animation": "jelly {speed}s linear infinite",
+      },
       attrs: ["speed"],
       defaults: {
         speed: 1,
       }
     },
     twitch: {
-      cssProp: "animation",
+      cssProps: {
+        "animation": "twitch {speed}s linear infinite",
+      },
       attrs: ["speed"],
-      cssVal: "twitch {speed}s linear infinite",
       defaults: {
         speed: 0.5,
       }
     },
     shake: {
-      cssProp: "animation",
+      cssProps: {
+        "animation": "shake {speed}s linear infinite",
+      },
       attrs: ["speed"],
-      cssVal: "shake {speed}s linear infinite",
       defaults: {
         speed: 0.5,
       }
     },
     spin: {
-      cssProp: "animation",
-      cssVal: "spin-{direction} {speed}s linear infinite {alternate}",
+      cssProps: {
+        "animation": "spin {speed}s linear infinite",
+      },
       attrs: ["speed", "x", "y", "z", "alternate"],
       defaults: {
         speed: 1.5,
@@ -50,47 +56,53 @@ addEventListener("DOMContentLoaded", () => {
       },
     },
     jump: {
-      cssProp: "animation",
-      cssVal: "jump {speed}s linear infinite",
+      cssProps: {
+        "animation": "jump {speed}s linear infinite",
+      },
       attrs: ["speed"],
       defaults: {
         speed: 0.75,
       },
     },
     bounce: {
-      cssProp: "animation",
-      cssVal: "bounce {speed}s linear infinite",
+      cssProps: {
+        "animation": "bounce {speed}s linear infinite",
+      },
       attrs: ["speed"],
       defaults: {
         speed: 0.75,
       },
     },
     sparkle: {
-      cssProp: "animation",
-      cssVal: "sparkle {speed}s linear infinite",
+      cssProps: {
+        "animation": "sparkle {speed}s linear infinite",
+      },
       attrs: ["speed"],
       defaults: {
         speed: 1,
       },
     },
     rainbow: {
-      cssProp: "animation",
-      cssVal: "rainbow {speed}s linear infinite",
+      cssProps: {
+        "animation": "rainbow {speed}s linear infinite",
+      },
       attrs: ["speed"],
       defaults: {
         speed: 1,
       }
     },
     blur: {
-      cssProp: "filter",
-      cssVal: "blur(6px)",
+      cssProps: {
+        "filter": "blur(6px)",
+      },
       attrs: [],
       defaults: {
       }
     },
     flip: {
-      cssProp: "transform",
-      cssVal: "scaleX({h}) scaleY({v})",
+      cssProps: {
+        "transform": "scaleX({h}) scaleY({v})",
+      },
       attrs: ["h", "v"],
       defaults: {
         h: false,
@@ -98,37 +110,42 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     rotate: {
-      cssProp: "transform",
-      cssVal: "rotate({deg}deg)",
+      cssProps: {
+        "transform": "rotate({deg}deg)",
+      },
       attrs: ["deg"],
       defaults: {
         deg: 0,
       }
     },
     x2: {
-      cssProp: "font-size",
-      cssVal: "200%",
+      cssProps: {
+        "font-size": "200%",
+      },
       attrs: [],
       defaults: {
       }
     },
     x3: {
-      cssProp: "font-size",
-      cssVal: "300%",
+      cssProps: {
+        "font-size": "300%",
+      },
       attrs: [],
       defaults: {
       }
     },
     x4: {
-      cssProp: "font-size",
-      cssVal: "400%",
+      cssProps: {
+        "font-size": "400%",
+      },
       attrs: [],
       defaults: {
       }
     },
     position: {
-      cssProp: "transform",
-      cssVal: "translate({x}em, {y}em)",
+      cssProps: {
+        "transform": "translate({x}em, {y}em)",
+      },
       attrs: ["x", "y"],
       defaults: {
         x: 0,
@@ -136,8 +153,9 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     scale: {
-      cssProp: "transform",
-      cssVal: "scale({x}, {y})",
+      cssProps: {
+        "transform": "scale({x}, {y})",
+      },
       attrs: ["x", "y"],
       defaults: {
         x: 1,
@@ -505,72 +523,74 @@ addEventListener("DOMContentLoaded", () => {
       objectElem = nestAndSetStyle(objectElem, [["transform", `translate(${value.x}em, ${value.y}em)`]]);
       objectElem = nestAndSetStyle(objectElem, [["fontFamily", value.font || null]]);
       value.effects.forEach((effect) => {
-        const prop = effectsData[effect.type]?.cssProp;
-        let val = effectsData[effect.type]?.cssVal;
-        switch (effect.type) {
-          case "tada":
-            val = val.replace("{speed}", effect.values.speed);
-            break;
-          case "jelly":
-            val = val.replace("{speed}", effect.values.speed);
-            break;
-          case "twitch":
-            val = val.replace("{speed}", effect.values.speed);
-            break;
-          case "shake":
-            val = val.replace("{speed}", effect.values.speed);
-            break;
-          case "spin":
-            val = val.replace("{speed}", effect.values.speed);
-            val = val.replace("{direction}", effect.values.x ? "x" : effect.values.y ? "y" : "z");
-            val = val.replace("{alternate}", effect.values.alternate ? "alternate" : "");
-            break;
-          case "jump":
-            val = val.replace("{speed}", effect.values.speed);
-            break;
-          case "bounce":
-            val = val.replace("{speed}", effect.values.speed);
-            break;
-          case "sparkle":
-            val = val.replace("{speed}", effect.values.speed);
-            break;
-          case "rainbow":
-            val = val.replace("{speed}", effect.values.speed);
-            break;
-          case "blur":
-            break;
-          case "flip":
-            val = val.replace("{h}", effect.values.h ? -1 : 1);
-            val = val.replace("{v}", effect.values.v ? -1 : 1);
-            break;
-          case "rotate":
-            val = val.replace("{deg}", effect.values.deg);
-            break;
-          case "x2":
-            break;
-          case "x3":
-            break;
-          case "x4":
-            break;
-          case "position":
-            val = val.replace("{x}", effect.values.x);
-            val = val.replace("{y}", effect.values.y);
-            break;
-          case "scale":
-            val = val.replace("{x}", effect.values.x);
-            val = val.replace("{y}", effect.values.y);
-            break;
-          default:
-            return;
+        Object.entries(effectsData[effect.type]?.cssProps || {}).forEach((cssTemplate) => {
+          let css = cssTemplate;
+          console.log(css);
+          switch (effect.type) {
+            case "tada":
+              css[1] = css[1].replace("{speed}", effect.values.speed);
+              break;
+            case "jelly":
+              css[1] = css[1].replace("{speed}", effect.values.speed);
+              break;
+            case "twitch":
+              css[1] = css[1].replace("{speed}", effect.values.speed);
+              break;
+            case "shake":
+              css[1] = css[1].replace("{speed}", effect.values.speed);
+              break;
+            case "spin":
+              css[1] = css[1].replace("{speed}", effect.values.speed);
+              css[1] = css[1].replace("{direction}", effect.values.x ? "x" : effect.values.y ? "y" : "z");
+              css[1] = css[1].replace("{alternate}", effect.values.alternate ? "alternate" : "");
+              break;
+            case "jump":
+              css[1] = css[1].replace("{speed}", effect.values.speed);
+              break;
+            case "bounce":
+              css[1] = css[1].replace("{speed}", effect.values.speed);
+              break;
+            case "sparkle":
+              css[1] = css[1].replace("{speed}", effect.values.speed);
+              break;
+            case "rainbow":
+              css[1] = css[1].replace("{speed}", effect.values.speed);
+              break;
+            case "blur":
+              break;
+            case "flip":
+              css[1] = css[1].replace("{h}", effect.values.h ? -1 : 1);
+              css[1] = css[1].replace("{v}", effect.values.v ? -1 : 1);
+              break;
+            case "rotate":
+              css[1] = css[1].replace("{deg}", effect.values.deg);
+              break;
+            case "x2":
+              break;
+            case "x3":
+              break;
+            case "x4":
+              break;
+            case "position":
+              css[1] = css[1].replace("{x}", effect.values.x);
+              css[1] = css[1].replace("{y}", effect.values.y);
+              break;
+            case "scale":
+              css[1] = css[1].replace("{x}", effect.values.x);
+              css[1] = css[1].replace("{y}", effect.values.y);
+              break;
+            default:
+              return;
           }
-        objectElem = nestAndSetStyle(objectElem, [[prop, val]]);
+          objectElem = nestAndSetStyle(objectElem, [css]);
         });
-        objectElem = nestAndSetStyle(objectElem, [["textAlign", value.isCenter ? "center" : null], ["display", "block"]]);
-        objectElem = nest(objectElem);
-        previewElem.appendChild(objectElem);
+      });
+      objectElem = nestAndSetStyle(objectElem, [["textAlign", value.isCenter ? "center" : null], ["display", "block"]]);
+      objectElem = nest(objectElem);
+      previewElem.appendChild(objectElem);
     });
   }
-  
+
   function nestAndSetStyle(elem, styles) {
     const tmp = document.createElement("span");
     tmp.appendChild(elem);
