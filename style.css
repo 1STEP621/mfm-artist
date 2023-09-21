@@ -39,18 +39,17 @@
   font-family: Hiragino Maru Gothic Pro, BIZ UDGothic, Roboto, HelveticaNeue, Arial, sans-serif;
   color: #c7d1d8;
   font-size: 16.8px;
-  line-height: 1.35em;
 }
 
 #preview *:not(#preview>*) {
   display: inline-block;
+  line-height: 1.35em;
   font-family: inherit;
   font-weight: inherit;
   text-decoration: inherit;
   font-style: inherit;
   text-align: inherit;
   font-size: inherit;
-  line-height: inherit;
   color: inherit;
 }
 
