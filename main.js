@@ -73,7 +73,7 @@ addEventListener("DOMContentLoaded", () => {
     spin: {
       cssList: (attrs) => {
         return [
-          ["animation", `spin-${attrs.x ? "x" : attrs.y ? "y" : attrs.z ? "z" : ""} ${attrs.speed}s linear infinite ${attrs.alternate ? "alternate" : ""}`],
+          ["animation", `spin-${attrs.x ? "x" : attrs.y ? "y" : attrs.z ? "z" : ""} ${attrs.speed}s linear infinite ${attrs.behavior} `],
         ];
       },
       MFMPropsList: function (attrs) {
@@ -82,16 +82,17 @@ addEventListener("DOMContentLoaded", () => {
           ["x", attrs.x === this.defaults.x ? false : attrs.x],
           ["y", attrs.y === this.defaults.y ? false : attrs.y],
           ["z", attrs.z === this.defaults.z ? false : attrs.z],
-          ["alternate", attrs.alternate === this.defaults.alternate ? false : attrs.alternate],
+          ["alternate", attrs.behavior === "alternate"],
+          ["left", attrs.behavior === "reverse"]
         ];
       },
-      attrs: ["speed", "x", "y", "z", "alternate"],
+      attrs: ["speed", "x", "y", "z", "behavior"],
       defaults: {
         speed: 1.5,
         x: false,
         y: false,
         z: true,
-        alternate: false,
+        behavior: "normal",
       },
     },
     jump: {
@@ -539,7 +540,7 @@ addEventListener("DOMContentLoaded", () => {
           const effectType = e.target.value === "none" ? null : e.target.value;
           objects[e.target.closest(".object").dataset.id].effects[e.target.closest(".object-effect").dataset.id] = {
             type: effectType,
-            values: {},
+            values: effectsData[effectType]?.defaults || {},
           };
           const thisEffectElem = e.target.closest(".object").querySelector(`.object-effect[data-id="${e.target.closest(".object-effect").dataset.id}"]`);
           thisEffectElem.querySelector(".object-effect-setting")?.remove();
@@ -554,8 +555,12 @@ addEventListener("DOMContentLoaded", () => {
             thisEffectSettingElem.insertAdjacentHTML("beforeend",
               `<label>x:<input type="radio" class="x" name="direction${effectId}" data-other="y,z"></label>
             <label>y:<input type="radio" class="y" name="direction${effectId}" data-other="x,z"></label>
-            <label>z:<input type="radio" class="z" name="direction${effectId}" data-other="x,y" checked></label>
-            <label>往復:<input type="checkbox" class="alternate"></label>`);
+            <label>z:<input type="radio" class="z" name="direction${effectId}" data-other="x,y" checked></label><br>
+            <select class="behavior">
+              <option value="normal">時計回り</option>
+              <option value="reverse">反時計回り</option>
+              <option value="alternate">往復</option>
+            </select>`);
           }
           if (effectType === "flip") {
             thisEffectSettingElem.insertAdjacentHTML("beforeend",
@@ -577,7 +582,7 @@ addEventListener("DOMContentLoaded", () => {
             <div>大きさy:<input type="number" class="y" placeholder="大きさy" step="0.1" min="-5" max="5" value="1"></div>`);
           }
 
-          onEventAll(thisEffectSettingElem.querySelectorAll("input"), "input", (e) => {
+          onEventAll(thisEffectSettingElem.querySelectorAll("input, select"), "input", (e) => {
             const thisEffect = objects[e.target.closest(".object").dataset.id].effects[e.target.closest(".object-effect").dataset.id];
             switch (e.target.type) {
               case "radio":
@@ -591,15 +596,17 @@ addEventListener("DOMContentLoaded", () => {
               case "checkbox":
                 thisEffect.values[e.target.classList[0]] = e.target.checked;
                 break;
-              default:
+              case "number":
                 thisEffect.values[e.target.classList[0]] = Number(e.target.value);
+                break;
+              default:
+                thisEffect.values[e.target.classList[0]] = e.target.value;
                 break;
             }
             render();
             generateMFM();
           });
 
-          dispatchEventAll(thisEffectSettingElem.querySelectorAll("input"), "input");
           render();
           generateMFM();
           effectId++;

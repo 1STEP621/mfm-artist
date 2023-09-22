@@ -264,6 +264,8 @@ body {
   background-color: #d7eaf1;
 }
 
+/* https://github.com/misskey-dev/misskey/blob/develop/packages/frontend/src/style.scss より改変 */
+/* 以下のコードはAGPL-3.0でライセンスされています。 */
 @keyframes tada {
   0% {
     transform: scaleZ(1)
