@@ -12,6 +12,11 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `tada ${attrs.speed}s linear infinite`],
         ];
       },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+        ];
+      },
       attrs: ["speed"],
       defaults: {
         speed: 1,
@@ -21,6 +26,11 @@ addEventListener("DOMContentLoaded", () => {
       cssList: (attrs) => {
         return [
           ["animation", `jelly ${attrs.speed}s linear infinite`],
+        ];
+      },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
         ];
       },
       attrs: ["speed"],
@@ -34,6 +44,11 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `twitch ${attrs.speed}s linear infinite`],
         ];
       },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+        ];
+      },
       attrs: ["speed"],
       defaults: {
         speed: 0.5,
@@ -45,6 +60,11 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `shake ${attrs.speed}s linear infinite`],
         ];
       },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+        ];
+      },
       attrs: ["speed"],
       defaults: {
         speed: 0.5,
@@ -54,6 +74,15 @@ addEventListener("DOMContentLoaded", () => {
       cssList: (attrs) => {
         return [
           ["animation", `spin-${attrs.x ? "x" : attrs.y ? "y" : attrs.z ? "z" : ""} ${attrs.speed}s linear infinite ${attrs.alternate ? "alternate" : ""}`],
+        ];
+      },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+          ["x", attrs.x === defaults.x ? false : attrs.x],
+          ["y", attrs.y === defaults.y ? false : attrs.y],
+          ["z", attrs.z === defaults.z ? false : attrs.z],
+          ["alternate", attrs.alternate === defaults.alternate ? false : attrs.alternate],
         ];
       },
       attrs: ["speed", "x", "y", "z", "alternate"],
@@ -71,6 +100,11 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `jump ${attrs.speed}s linear infinite`],
         ];
       },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+        ];
+      },
       attrs: ["speed"],
       defaults: {
         speed: 0.75,
@@ -80,6 +114,11 @@ addEventListener("DOMContentLoaded", () => {
       cssList: (attrs) => {
         return [
           ["animation", `bounce ${attrs.speed}s linear infinite`],
+        ];
+      },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
         ];
       },
       attrs: ["speed"],
@@ -93,6 +132,11 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `sparkle ${attrs.speed}s linear infinite`],
         ];
       },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+        ];
+      },
       attrs: ["speed"],
       defaults: {
         speed: 1,
@@ -102,6 +146,11 @@ addEventListener("DOMContentLoaded", () => {
       cssList: (attrs) => {
         return [
           ["animation", `rainbow ${attrs.speed}s linear infinite`],
+        ];
+      },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
         ];
       },
       attrs: ["speed"],
@@ -115,6 +164,10 @@ addEventListener("DOMContentLoaded", () => {
           ["filter", "blur(6px)"],
         ];
       },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+        ];
+      },
       attrs: [],
       defaults: {
       }
@@ -123,6 +176,12 @@ addEventListener("DOMContentLoaded", () => {
       cssList: (attrs) => {
         return [
           ["transform", `scaleX(${attrs.h ? -1 : 1}) scaleY(${attrs.v ? -1 : 1})`],
+        ];
+      },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["h", attrs.h === defaults.h ? false : attrs.h],
+          ["v", attrs.v === defaults.v ? false : attrs.v],
         ];
       },
       attrs: ["h", "v"],
@@ -137,6 +196,11 @@ addEventListener("DOMContentLoaded", () => {
           ["transform", `rotate(${attrs.deg}deg)`],
         ];
       },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["deg", attrs.deg === defaults.deg ? false : attrs.deg],
+        ];
+      },
       attrs: ["deg"],
       defaults: {
         deg: 0,
@@ -146,6 +210,10 @@ addEventListener("DOMContentLoaded", () => {
       cssList: (attrs) => {
         return [
           ["font-size", "200%"],
+        ];
+      },
+      MFMPropsList: (attrs, defaults) => {
+        return [
         ];
       },
       attrs: [],
@@ -158,6 +226,10 @@ addEventListener("DOMContentLoaded", () => {
           ["font-size", "300%"],
         ];
       },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+        ];
+      },
       attrs: [],
       defaults: {
       }
@@ -166,6 +238,10 @@ addEventListener("DOMContentLoaded", () => {
       cssList: (attrs) => {
         return [
           ["font-size", "400%"],
+        ];
+      },
+      MFMPropsList: (attrs, defaults) => {
+        return [
         ];
       },
       attrs: [],
@@ -178,6 +254,12 @@ addEventListener("DOMContentLoaded", () => {
           ["transform", `translate(${attrs.x}em, ${attrs.y}em)`],
         ];
       },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["x", attrs.x === defaults.x ? false : attrs.x],
+          ["y", attrs.y === defaults.y ? false : attrs.y],
+        ];
+      },
       attrs: ["x", "y"],
       defaults: {
         x: 0,
@@ -188,6 +270,12 @@ addEventListener("DOMContentLoaded", () => {
       cssList: (attrs) => {
         return [
           ["transform", `scale(${attrs.x}, ${attrs.y})`],
+        ];
+      },
+      MFMPropsList: (attrs, defaults) => {
+        return [
+          ["x", attrs.x === defaults.x ? false : attrs.x],
+          ["y", attrs.y === defaults.y ? false : attrs.y],
         ];
       },
       attrs: ["x", "y"],
@@ -514,11 +602,11 @@ addEventListener("DOMContentLoaded", () => {
           dispatchEventAll(thisEffectSettingElem.querySelectorAll("input"), "input");
           render();
           generateMFM();
+          effectId++;
         });
 
         render();
         generateMFM();
-        effectId++;
       });
 
       render();
@@ -568,7 +656,7 @@ addEventListener("DOMContentLoaded", () => {
   function nestAndSetStyle(elem, styles) {
     const tmp = document.createElement("span");
     tmp.appendChild(elem);
-    styles.forEach((style) => {
+    styles?.forEach((style) => {
       tmp.style[style[0]] = style[1];
     });
     elem = tmp;
@@ -598,15 +686,7 @@ addEventListener("DOMContentLoaded", () => {
       thisObjectMFM = addMFM("position", [["x", value.x], ["y", value.y]], thisObjectMFM);
       if (value.font) thisObjectMFM = addMFM("font", [[value.font, true]], thisObjectMFM);
       value.effects.forEach((effect) => {
-        if (effect.type) thisObjectMFM = addMFM(effect.type, Object.entries(effect.values).map(entry => {
-          let res = entry;
-          if (entry[1] === effectsData[effect.type].defaults[entry[0]]) {
-            res[1] = false;
-          } else if (res[0] === "speed") {
-            res[1] += "s";
-          }
-          return res;
-        }), thisObjectMFM);
+        thisObjectMFM = addMFM(effect.type, effectsData[effect.type]?.MFMPropsList(effect.values, effectsData[effect.type].defaults), thisObjectMFM);
       });
       if (value.isCenter) thisObjectMFM = addNestLikeHTML("center", thisObjectMFM);
       allMFM += thisObjectMFM + "\n";
@@ -617,19 +697,23 @@ addEventListener("DOMContentLoaded", () => {
   function addMFM(name, properties, innerText) {
     // 値がfalse: 完全に省略
     // 値がtrue: プロパティ名のみ
-    let res = `$[${name}`;
-    let firstAttrPrinted = false;
-    properties.forEach((property) => {
-      if (property[1] !== false) {
-        res += (firstAttrPrinted ? "," : ".") + `${property[0]}`;
-        if (property[1] !== true) {
-          res += `=${property[1]}`;
+    if (properties !== undefined) {
+      let res = `$[${name}`;
+      let firstAttrPrinted = false;
+      properties.forEach((property) => {
+        if (property[1] !== false) {
+          res += (firstAttrPrinted ? "," : ".") + `${property[0]}`;
+          if (property[1] !== true) {
+            res += `=${property[1]}`;
+          }
+          firstAttrPrinted = true;
         }
-        firstAttrPrinted = true;
-      }
-    });
-    res += ` ${innerText}]`;
-    return res;
+      });
+      res += ` ${innerText}]`;
+      return res;
+    } else {
+      return innerText;
+    }
   }
 
   function addNest(text, innerText) {
