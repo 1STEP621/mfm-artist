@@ -12,9 +12,9 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `tada ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
         ];
       },
       attrs: ["speed"],
@@ -28,9 +28,9 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `jelly ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
         ];
       },
       attrs: ["speed"],
@@ -44,9 +44,9 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `twitch ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
         ];
       },
       attrs: ["speed"],
@@ -60,9 +60,9 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `shake ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
         ];
       },
       attrs: ["speed"],
@@ -76,21 +76,21 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `spin-${attrs.x ? "x" : attrs.y ? "y" : attrs.z ? "z" : ""} ${attrs.speed}s linear infinite ${attrs.alternate ? "alternate" : ""}`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
-          ["x", attrs.x === defaults.x ? false : attrs.x],
-          ["y", attrs.y === defaults.y ? false : attrs.y],
-          ["z", attrs.z === defaults.z ? false : attrs.z],
-          ["alternate", attrs.alternate === defaults.alternate ? false : attrs.alternate],
+          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
+          ["x", attrs.x === this.defaults.x ? false : attrs.x],
+          ["y", attrs.y === this.defaults.y ? false : attrs.y],
+          ["z", attrs.z === this.defaults.z ? false : attrs.z],
+          ["alternate", attrs.alternate === this.defaults.alternate ? false : attrs.alternate],
         ];
       },
       attrs: ["speed", "x", "y", "z", "alternate"],
       defaults: {
         speed: 1.5,
-        x: true,
+        x: false,
         y: false,
-        z: false,
+        z: true,
         alternate: false,
       },
     },
@@ -100,9 +100,9 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `jump ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
         ];
       },
       attrs: ["speed"],
@@ -116,9 +116,9 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `bounce ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
         ];
       },
       attrs: ["speed"],
@@ -132,9 +132,9 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `sparkle ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
         ];
       },
       attrs: ["speed"],
@@ -148,9 +148,9 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `rainbow ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["speed", attrs.speed === defaults.speed ? false : attrs.speed + "s"],
+          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
         ];
       },
       attrs: ["speed"],
@@ -164,7 +164,7 @@ addEventListener("DOMContentLoaded", () => {
           ["filter", "blur(6px)"],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
         ];
       },
@@ -178,10 +178,10 @@ addEventListener("DOMContentLoaded", () => {
           ["transform", `scaleX(${attrs.h ? -1 : 1}) scaleY(${attrs.v ? -1 : 1})`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["h", attrs.h === defaults.h ? false : attrs.h],
-          ["v", attrs.v === defaults.v ? false : attrs.v],
+          ["h", attrs.h === this.defaults.h ? false : attrs.h],
+          ["v", attrs.v === this.defaults.v ? false : attrs.v],
         ];
       },
       attrs: ["h", "v"],
@@ -196,9 +196,9 @@ addEventListener("DOMContentLoaded", () => {
           ["transform", `rotate(${attrs.deg}deg)`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["deg", attrs.deg === defaults.deg ? false : attrs.deg],
+          ["deg", attrs.deg === this.defaults.deg ? false : attrs.deg],
         ];
       },
       attrs: ["deg"],
@@ -212,7 +212,7 @@ addEventListener("DOMContentLoaded", () => {
           ["font-size", "200%"],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
         ];
       },
@@ -226,7 +226,7 @@ addEventListener("DOMContentLoaded", () => {
           ["font-size", "300%"],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
         ];
       },
@@ -240,7 +240,7 @@ addEventListener("DOMContentLoaded", () => {
           ["font-size", "400%"],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
         ];
       },
@@ -254,10 +254,10 @@ addEventListener("DOMContentLoaded", () => {
           ["transform", `translate(${attrs.x}em, ${attrs.y}em)`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["x", attrs.x === defaults.x ? false : attrs.x],
-          ["y", attrs.y === defaults.y ? false : attrs.y],
+          ["x", attrs.x === this.defaults.x ? false : attrs.x],
+          ["y", attrs.y === this.defaults.y ? false : attrs.y],
         ];
       },
       attrs: ["x", "y"],
@@ -272,10 +272,10 @@ addEventListener("DOMContentLoaded", () => {
           ["transform", `scale(${attrs.x}, ${attrs.y})`],
         ];
       },
-      MFMPropsList: (attrs, defaults) => {
+      MFMPropsList: function (attrs) {
         return [
-          ["x", attrs.x === defaults.x ? false : attrs.x],
-          ["y", attrs.y === defaults.y ? false : attrs.y],
+          ["x", attrs.x === this.defaults.x ? false : attrs.x],
+          ["y", attrs.y === this.defaults.y ? false : attrs.y],
         ];
       },
       attrs: ["x", "y"],
@@ -552,9 +552,9 @@ addEventListener("DOMContentLoaded", () => {
           }
           if (effectType === "spin") {
             thisEffectSettingElem.insertAdjacentHTML("beforeend",
-              `<label>x:<input type="radio" class="x" name="direction${effectId}" data-other="y,z" checked></label>
+              `<label>x:<input type="radio" class="x" name="direction${effectId}" data-other="y,z"></label>
             <label>y:<input type="radio" class="y" name="direction${effectId}" data-other="x,z"></label>
-            <label>z:<input type="radio" class="z" name="direction${effectId}" data-other="x,y"></label>
+            <label>z:<input type="radio" class="z" name="direction${effectId}" data-other="x,y" checked></label>
             <label>往復:<input type="checkbox" class="alternate"></label>`);
           }
           if (effectType === "flip") {
@@ -686,7 +686,7 @@ addEventListener("DOMContentLoaded", () => {
       thisObjectMFM = addMFM("position", [["x", value.x], ["y", value.y]], thisObjectMFM);
       if (value.font) thisObjectMFM = addMFM("font", [[value.font, true]], thisObjectMFM);
       value.effects.forEach((effect) => {
-        thisObjectMFM = addMFM(effect.type, effectsData[effect.type]?.MFMPropsList(effect.values, effectsData[effect.type].defaults), thisObjectMFM);
+        thisObjectMFM = addMFM(effect.type, effectsData[effect.type]?.MFMPropsList(effect.values), thisObjectMFM);
       });
       if (value.isCenter) thisObjectMFM = addNestLikeHTML("center", thisObjectMFM);
       allMFM += thisObjectMFM + "\n";
