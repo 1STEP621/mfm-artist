@@ -73,15 +73,15 @@ addEventListener("DOMContentLoaded", () => {
     spin: {
       cssList: (attrs) => {
         return [
-          ["animation", `spin-${attrs.x ? "x" : attrs.y ? "y" : attrs.z ? "z" : ""} ${attrs.speed}s linear infinite ${attrs.behavior} `],
+          ["animation", `spin-${attrs.direction} ${attrs.speed}s linear infinite ${attrs.behavior} `],
         ];
       },
       MFMPropsList: function (attrs) {
         return [
           ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
-          ["x", attrs.x === this.defaults.x ? false : attrs.x],
-          ["y", attrs.y === this.defaults.y ? false : attrs.y],
-          ["z", attrs.z === this.defaults.z ? false : attrs.z],
+          ["x", attrs.direction === "x"],
+          ["y", attrs.direction === "y"],
+          ["z", false],
           ["alternate", attrs.behavior === "alternate"],
           ["left", attrs.behavior === "reverse"]
         ];
@@ -89,9 +89,7 @@ addEventListener("DOMContentLoaded", () => {
       attrs: ["speed", "x", "y", "z", "behavior"],
       defaults: {
         speed: 1.5,
-        x: false,
-        y: false,
-        z: true,
+        direction: "z",
         behavior: "normal",
       },
     },
@@ -553,11 +551,13 @@ addEventListener("DOMContentLoaded", () => {
           }
           if (effectType === "spin") {
             thisEffectSettingElem.insertAdjacentHTML("beforeend",
-              `<label>x:<input type="radio" class="x" name="direction${effectId}" data-other="y,z"></label>
-            <label>y:<input type="radio" class="y" name="direction${effectId}" data-other="x,z"></label>
-            <label>z:<input type="radio" class="z" name="direction${effectId}" data-other="x,y" checked></label><br>
+              `<select class="direction">
+              <option value="x">x</option>
+              <option value="y">y</option>
+              <option value="z" selected>z</option>
+            </select>
             <select class="behavior">
-              <option value="normal">時計回り</option>
+              <option value="normal" selected>時計回り</option>
               <option value="reverse">反時計回り</option>
               <option value="alternate">往復</option>
             </select>`);
