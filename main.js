@@ -6,9 +6,11 @@ addEventListener("DOMContentLoaded", () => {
   const messageElem = document.getElementById("message");
   const effectsData = {
     tada: {
-      cssProps: {
-        "font-size": "150%",
-        "animation": "tada {speed}s linear infinite",
+      cssList: (attrs) => {
+        return [
+          ["font-size", "150%"],
+          ["animation", `tada ${attrs.speed}s linear infinite`],
+        ];
       },
       attrs: ["speed"],
       defaults: {
@@ -16,8 +18,10 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     jelly: {
-      cssProps: {
-        "animation": "jelly {speed}s linear infinite",
+      cssList: (attrs) => {
+        return [
+          ["animation", `jelly ${attrs.speed}s linear infinite`],
+        ];
       },
       attrs: ["speed"],
       defaults: {
@@ -25,8 +29,10 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     twitch: {
-      cssProps: {
-        "animation": "twitch {speed}s linear infinite",
+      cssList: (attrs) => {
+        return [
+          ["animation", `twitch ${attrs.speed}s linear infinite`],
+        ];
       },
       attrs: ["speed"],
       defaults: {
@@ -34,8 +40,10 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     shake: {
-      cssProps: {
-        "animation": "shake {speed}s linear infinite",
+      cssList: (attrs) => {
+        return [
+          ["animation", `shake ${attrs.speed}s linear infinite`],
+        ];
       },
       attrs: ["speed"],
       defaults: {
@@ -43,8 +51,10 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     spin: {
-      cssProps: {
-        "animation": "spin {speed}s linear infinite",
+      cssList: (attrs) => {
+        return [
+          ["animation", `spin-${attrs.x ? "x" : attrs.y ? "y" : attrs.z ? "z" : ""} ${attrs.speed}s linear infinite ${attrs.alternate ? "alternate" : ""}`],
+        ];
       },
       attrs: ["speed", "x", "y", "z", "alternate"],
       defaults: {
@@ -56,8 +66,10 @@ addEventListener("DOMContentLoaded", () => {
       },
     },
     jump: {
-      cssProps: {
-        "animation": "jump {speed}s linear infinite",
+      cssList: (attrs) => {
+        return [
+          ["animation", `jump ${attrs.speed}s linear infinite`],
+        ];
       },
       attrs: ["speed"],
       defaults: {
@@ -65,8 +77,10 @@ addEventListener("DOMContentLoaded", () => {
       },
     },
     bounce: {
-      cssProps: {
-        "animation": "bounce {speed}s linear infinite",
+      cssList: (attrs) => {
+        return [
+          ["animation", `bounce ${attrs.speed}s linear infinite`],
+        ];
       },
       attrs: ["speed"],
       defaults: {
@@ -74,8 +88,10 @@ addEventListener("DOMContentLoaded", () => {
       },
     },
     sparkle: {
-      cssProps: {
-        "animation": "sparkle {speed}s linear infinite",
+      cssList: (attrs) => {
+        return [
+          ["animation", `sparkle ${attrs.speed}s linear infinite`],
+        ];
       },
       attrs: ["speed"],
       defaults: {
@@ -83,8 +99,10 @@ addEventListener("DOMContentLoaded", () => {
       },
     },
     rainbow: {
-      cssProps: {
-        "animation": "rainbow {speed}s linear infinite",
+      cssList: (attrs) => {
+        return [
+          ["animation", `rainbow ${attrs.speed}s linear infinite`],
+        ];
       },
       attrs: ["speed"],
       defaults: {
@@ -92,16 +110,20 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     blur: {
-      cssProps: {
-        "filter": "blur(6px)",
+      cssList: (attrs) => {
+        return [
+          ["filter", "blur(6px)"],
+        ];
       },
       attrs: [],
       defaults: {
       }
     },
     flip: {
-      cssProps: {
-        "transform": "scaleX({h}) scaleY({v})",
+      cssList: (attrs) => {
+        return [
+          ["transform", `scaleX(${attrs.h ? -1 : 1}) scaleY(${attrs.v ? -1 : 1})`],
+        ];
       },
       attrs: ["h", "v"],
       defaults: {
@@ -110,8 +132,10 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     rotate: {
-      cssProps: {
-        "transform": "rotate({deg}deg)",
+      cssList: (attrs) => {
+        return [
+          ["transform", `rotate(${attrs.deg}deg)`],
+        ];
       },
       attrs: ["deg"],
       defaults: {
@@ -119,32 +143,40 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     x2: {
-      cssProps: {
-        "font-size": "200%",
+      cssList: (attrs) => {
+        return [
+          ["font-size", "200%"],
+        ];
       },
       attrs: [],
       defaults: {
       }
     },
     x3: {
-      cssProps: {
-        "font-size": "300%",
+      cssList: (attrs) => {
+        return [
+          ["font-size", "300%"],
+        ];
       },
       attrs: [],
       defaults: {
       }
     },
     x4: {
-      cssProps: {
-        "font-size": "400%",
+      cssList: (attrs) => {
+        return [
+          ["font-size", "400%"],
+        ];
       },
       attrs: [],
       defaults: {
       }
     },
     position: {
-      cssProps: {
-        "transform": "translate({x}em, {y}em)",
+      cssList: (attrs) => {
+        return [
+          ["transform", `translate(${attrs.x}em, ${attrs.y}em)`],
+        ];
       },
       attrs: ["x", "y"],
       defaults: {
@@ -153,8 +185,10 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     scale: {
-      cssProps: {
-        "transform": "scale({x}, {y})",
+      cssList: (attrs) => {
+        return [
+          ["transform", `scale(${attrs.x}, ${attrs.y})`],
+        ];
       },
       attrs: ["x", "y"],
       defaults: {
@@ -523,67 +557,7 @@ addEventListener("DOMContentLoaded", () => {
       objectElem = nestAndSetStyle(objectElem, [["transform", `translate(${value.x}em, ${value.y}em)`]]);
       objectElem = nestAndSetStyle(objectElem, [["fontFamily", value.font || null]]);
       value.effects.forEach((effect) => {
-        Object.entries(effectsData[effect.type]?.cssProps || {}).forEach((cssTemplate) => {
-          let css = cssTemplate;
-          console.log(css);
-          switch (effect.type) {
-            case "tada":
-              css[1] = css[1].replace("{speed}", effect.values.speed);
-              break;
-            case "jelly":
-              css[1] = css[1].replace("{speed}", effect.values.speed);
-              break;
-            case "twitch":
-              css[1] = css[1].replace("{speed}", effect.values.speed);
-              break;
-            case "shake":
-              css[1] = css[1].replace("{speed}", effect.values.speed);
-              break;
-            case "spin":
-              css[1] = css[1].replace("{speed}", effect.values.speed);
-              css[1] = css[1].replace("{direction}", effect.values.x ? "x" : effect.values.y ? "y" : "z");
-              css[1] = css[1].replace("{alternate}", effect.values.alternate ? "alternate" : "");
-              break;
-            case "jump":
-              css[1] = css[1].replace("{speed}", effect.values.speed);
-              break;
-            case "bounce":
-              css[1] = css[1].replace("{speed}", effect.values.speed);
-              break;
-            case "sparkle":
-              css[1] = css[1].replace("{speed}", effect.values.speed);
-              break;
-            case "rainbow":
-              css[1] = css[1].replace("{speed}", effect.values.speed);
-              break;
-            case "blur":
-              break;
-            case "flip":
-              css[1] = css[1].replace("{h}", effect.values.h ? -1 : 1);
-              css[1] = css[1].replace("{v}", effect.values.v ? -1 : 1);
-              break;
-            case "rotate":
-              css[1] = css[1].replace("{deg}", effect.values.deg);
-              break;
-            case "x2":
-              break;
-            case "x3":
-              break;
-            case "x4":
-              break;
-            case "position":
-              css[1] = css[1].replace("{x}", effect.values.x);
-              css[1] = css[1].replace("{y}", effect.values.y);
-              break;
-            case "scale":
-              css[1] = css[1].replace("{x}", effect.values.x);
-              css[1] = css[1].replace("{y}", effect.values.y);
-              break;
-            default:
-              return;
-          }
-          objectElem = nestAndSetStyle(objectElem, [css]);
-        });
+        objectElem = nestAndSetStyle(objectElem, effectsData[effect.type]?.cssList(effect.values));
       });
       objectElem = nestAndSetStyle(objectElem, [["textAlign", value.isCenter ? "center" : null], ["display", "block"]]);
       objectElem = nest(objectElem);
