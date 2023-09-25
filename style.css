@@ -265,6 +265,10 @@ body {
   background-color: #d7eaf1;
 }
 
+:invalid {
+  background-color: #c53c1244 !important;
+}
+
 /* https://github.com/misskey-dev/misskey/blob/develop/packages/frontend/src/style.scss より改変 */
 /* 以下のコードはAGPL-3.0でライセンスされています。 */
 @keyframes tada {

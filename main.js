@@ -18,7 +18,7 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         speed: () => {
-          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.tada.defaults.speed}"></div>`;
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.tada.defaults.speed}"></div>`;
         },
       },
       defaults: {
@@ -37,7 +37,7 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         speed: () => {
-          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.jelly.defaults.speed}"></div>`;
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.jelly.defaults.speed}"></div>`;
         },
       },
       defaults: {
@@ -56,7 +56,7 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         speed: () => {
-          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.twitch.defaults.speed}"></div>`;
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.twitch.defaults.speed}"></div>`;
         },
       },
       defaults: {
@@ -75,7 +75,7 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         speed: () => {
-          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.shake.defaults.speed}"></div>`;
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.shake.defaults.speed}"></div>`;
         },
       },
       defaults: {
@@ -101,7 +101,7 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         speed: () => {
-          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.spin.defaults.speed}"></div>`;
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.spin.defaults.speed}"></div>`;
         },
         direction: () => {
           return `<select class="direction">
@@ -136,7 +136,7 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         speed: () => {
-          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.jump.defaults.speed}"></div>`;
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.jump.defaults.speed}"></div>`;
         },
       },
       defaults: {
@@ -155,7 +155,7 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         speed: () => {
-          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.bounce.defaults.speed}"></div>`;
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.bounce.defaults.speed}"></div>`;
         },
       },
       defaults: {
@@ -174,7 +174,7 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         speed: () => {
-          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.sparkle.defaults.speed}"></div>`;
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.sparkle.defaults.speed}"></div>`;
         },
       },
       defaults: {
@@ -193,7 +193,7 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         speed: () => {
-          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.rainbow.defaults.speed}"></div>`;
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.rainbow.defaults.speed}"></div>`;
         },
       },
       defaults: {
@@ -253,7 +253,7 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         deg: () => {
-          return `<div>角度:<input type="number" class="deg" placeholder="角度" step="1" value="${effectsData.rotate.defaults.deg}"></div>`;
+          return `<div>角度:<input type="number" class="deg" placeholder="角度" value="${effectsData.rotate.defaults.deg}"></div>`;
         },
       },
       defaults: {
@@ -320,10 +320,10 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         x: () => {
-          return `<div>x:<input type="number" class="x" placeholder="x" step="0.5" value="${effectsData.position.defaults.x}"></div>`;
+          return `<div>x:<input type="number" class="x" placeholder="x" value="${effectsData.position.defaults.x}"></div>`;
         },
         y: () => {
-          return `<div>y:<input type="number" class="y" placeholder="y" step="0.5" value="${effectsData.position.defaults.y}"></div>`;
+          return `<div>y:<input type="number" class="y" placeholder="y" value="${effectsData.position.defaults.y}"></div>`;
         },
       },
       defaults: {
@@ -346,7 +346,7 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         x: () => {
-          return `<div>大きさx:<input type="number" class="x" placeholder="大きさx" step="0.1" min="-5" max="5" value="${effectsData.scale.defaults.x}"></div>`;
+          return `<div>大きさx:<input type="number" class="x" placeholder="大きさx" max="5" value="${effectsData.scale.defaults.x}"></div>`;
         },
       },
       defaults: {
@@ -399,12 +399,12 @@ addEventListener("DOMContentLoaded", () => {
           </div>
           <div class="object-settings-wrapper" hidden>
             <div class="object-setting-group">
-              <div>x:<input type="number" class="setting-x" placeholder="x" value="0" step="0.5" data-linkattr="x"></div>
-              <div>y:<input type="number" class="setting-y" placeholder="y" value="0" step="0.5" data-linkattr="y"></div>
+              <div>x:<input type="number" class="setting-x" placeholder="x" value="0" data-linkattr="x"></div>
+              <div>y:<input type="number" class="setting-y" placeholder="y" value="0" data-linkattr="y"></div>
             </div>
             <div class="object-setting-group">
-              <div>大きさx:<input type="number" class="setting-size-x" placeholder="大きさx" value="1" step="0.1" min="-5" max="5" data-linkattr="sizeX"></div>
-              <div>大きさy:<input type="number" class="setting-size-y" placeholder="大きさy" value="1" step="0.1" min="-5" max="5" data-linkattr="sizeY"></div>
+              <div>大きさx:<input type="number" class="setting-size-x" placeholder="大きさx" value="1" max="5" data-linkattr="sizeX"></div>
+              <div>大きさy:<input type="number" class="setting-size-y" placeholder="大きさy" value="1" max="5" data-linkattr="sizeY"></div>
             </div>
             <div class="object-setting-group">
               <label><input type="checkbox" class="setting-bold" data-linkattr="isBold"><b>太字</b></label>
@@ -438,7 +438,6 @@ addEventListener("DOMContentLoaded", () => {
           </div>
         </div>`);
 
-      const objectElem = document.querySelectorAll(".object");
       const objectDeleteElem = document.querySelectorAll(".object-delete");
       const objectSettingElem = document.querySelectorAll(".object-setting");
       const addEffectElem = document.querySelectorAll(".add-effect");
@@ -631,8 +630,8 @@ addEventListener("DOMContentLoaded", () => {
       if (value.isItalic) thisObjectMFM = addNestLikeHTML("i", thisObjectMFM);
       if (!value.fgDefault) thisObjectMFM = addMFM("fg", [["color", value.fg.substring(1, 7)]], thisObjectMFM);
       if (!value.bgDefault) thisObjectMFM = addMFM("bg", [["color", value.bg.substring(1, 7)]], thisObjectMFM);
-      thisObjectMFM = addMFM("scale", [["x", value.sizeX], ["y", value.sizeY]], thisObjectMFM);
-      thisObjectMFM = addMFM("position", [["x", value.x], ["y", value.y]], thisObjectMFM);
+      if (value.sizeX !== 1 && value.sizeY !== 1) thisObjectMFM = addMFM("scale", [["x", value.sizeX == 1 ? false : value.sizeX], ["y", value.sizeY == 1 ? false: value.sizeY]], thisObjectMFM);
+      if (value.x !== 0 && value.y !== 0) thisObjectMFM = addMFM("position", [["x", value.x == 0 ? false: value.x], ["y", value.y == 0 ? false : value.y]], thisObjectMFM);
       if (value.font) thisObjectMFM = addMFM("font", [[value.font, true]], thisObjectMFM);
       value.effects.forEach((effect) => {
         thisObjectMFM = effectsData[effect.type]?.MFM(thisObjectMFM, effect.values) || thisObjectMFM;
