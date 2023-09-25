@@ -54,8 +54,16 @@
   color: inherit;
 }
 
-#preview *:hover {
+#preview span[style="filter: blur(6px);"] {
+  transition: filter 0.3s ease-in-out;
+}
+
+#preview span[style="filter: blur(6px);"]:hover {
   filter: none !important;
+}
+
+#preview span[style="text-align: center;"] {
+  display: block !important;
 }
 
 textarea {
