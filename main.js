@@ -12,12 +12,14 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `tada ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("tada", [["speed", attrs.speed === effectsData.tada.defaults.speed ? false : attrs.speed + "s"]], text);
       },
-      attrs: ["speed"],
+      attrSettingHTMLs: {
+        speed: () => {
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.tada.defaults.speed}"></div>`;
+        },
+      },
       defaults: {
         speed: 1,
       }
@@ -28,12 +30,14 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `jelly ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("jelly", [["speed", attrs.speed === effectsData.jelly.defaults.speed ? false : attrs.speed + "s"]], text);
       },
-      attrs: ["speed"],
+      attrSettingHTMLs: {
+        speed: () => {
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.jelly.defaults.speed}"></div>`;
+        },
+      },
       defaults: {
         speed: 1,
       }
@@ -44,12 +48,14 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `twitch ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("twitch", [["speed", attrs.speed === effectsData.twitch.defaults.speed ? false : attrs.speed + "s"]], text);
       },
-      attrs: ["speed"],
+      attrSettingHTMLs: {
+        speed: () => {
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.twitch.defaults.speed}"></div>`;
+        },
+      },
       defaults: {
         speed: 0.5,
       }
@@ -60,12 +66,14 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `shake ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("shake", [["speed", attrs.speed === effectsData.shake.defaults.speed ? false : attrs.speed + "s"]], text);
       },
-      attrs: ["speed"],
+      attrSettingHTMLs: {
+        speed: () => {
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.shake.defaults.speed}"></div>`;
+        },
+      },
       defaults: {
         speed: 0.5,
       }
@@ -76,17 +84,35 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `spin-${attrs.direction} ${attrs.speed}s linear infinite ${attrs.behavior} `],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
+      MFM: (text, attrs) => {
+        return addMFM("spin", [
+          ["speed", attrs.speed === effectsData.spin.defaults.speed ? false : attrs.speed + "s"],
           ["x", attrs.direction === "x"],
           ["y", attrs.direction === "y"],
           ["z", false],
-          ["alternate", attrs.behavior === "alternate"],
-          ["left", attrs.behavior === "reverse"]
-        ];
+          ["left", attrs.behavior === "reverse"],
+          ["alternate", attrs.behavior === "alternate"]
+        ], text);
       },
-      attrs: ["speed", "x", "y", "z", "behavior"],
+      attrSettingHTMLs: {
+        speed: () => {
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.spin.defaults.speed}"></div>`;
+        },
+        direction: () => {
+          return `<select class="direction">
+            <option value="x" ${effectsData.spin.defaults.direction === "x" ? "selected" : ""}>x</option>
+            <option value="y" ${effectsData.spin.defaults.direction === "y" ? "selected" : ""}>y</option>
+            <option value="z" ${effectsData.spin.defaults.direction === "z" ? "selected" : ""}>z</option>
+          </select>`;
+        },
+        behavior: () => {
+          return `<select class="behavior">
+            <option value="normal" ${effectsData.spin.defaults.behavior === "normal" ? "selected" : ""}>時計回り</option>
+            <option value="reverse" ${effectsData.spin.defaults.behavior === "reverse" ? "selected" : ""}>反時計回り</option>
+            <option value="alternate" ${effectsData.spin.defaults.behavior === "selected" ? "selected" : ""}>往復</option>
+          </select>`;
+        },
+      },
       defaults: {
         speed: 1.5,
         direction: "z",
@@ -99,12 +125,14 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `jump ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("jump", [["speed", attrs.speed === effectsData.jump.defaults.speed ? false : attrs.speed + "s"]], text);
       },
-      attrs: ["speed"],
+      attrSettingHTMLs: {
+        speed: () => {
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.jump.defaults.speed}"></div>`;
+        },
+      },
       defaults: {
         speed: 0.75,
       },
@@ -115,12 +143,14 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `bounce ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("bounce", [["speed", attrs.speed === effectsData.bounce.defaults.speed ? false : attrs.speed + "s"]], text);
       },
-      attrs: ["speed"],
+      attrSettingHTMLs: {
+        speed: () => {
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.bounce.defaults.speed}"></div>`;
+        },
+      },
       defaults: {
         speed: 0.75,
       },
@@ -131,12 +161,14 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `sparkle ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("sparkle", [["speed", attrs.speed === effectsData.sparkle.defaults.speed ? false : attrs.speed + "s"]], text);
       },
-      attrs: ["speed"],
+      attrSettingHTMLs: {
+        speed: () => {
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.sparkle.defaults.speed}"></div>`;
+        },
+      },
       defaults: {
         speed: 1,
       },
@@ -147,12 +179,14 @@ addEventListener("DOMContentLoaded", () => {
           ["animation", `rainbow ${attrs.speed}s linear infinite`],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["speed", attrs.speed === this.defaults.speed ? false : attrs.speed + "s"],
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("rainbow", [["speed", attrs.speed === effectsData.rainbow.defaults.speed ? false : attrs.speed + "s"]], text);
       },
-      attrs: ["speed"],
+      attrSettingHTMLs: {
+        speed: () => {
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData.rainbow.defaults.speed}"></div>`;
+        },
+      },
       defaults: {
         speed: 1,
       }
@@ -163,11 +197,11 @@ addEventListener("DOMContentLoaded", () => {
           ["filter", "blur(6px)"],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("blur", [["speed", attrs.speed === effectsData.blur.defaults.speed ? false : attrs.speed + "s"]], text);
       },
-      attrs: [],
+      attrSettingHTMLs: {
+      },
       defaults: {
       }
     },
@@ -177,15 +211,22 @@ addEventListener("DOMContentLoaded", () => {
           ["transform", `scaleX(${attrs.h ? -1 : 1}) scaleY(${attrs.v ? -1 : 1})`],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["h", attrs.h === this.defaults.h ? false : attrs.h],
-          ["v", attrs.v === this.defaults.v ? false : attrs.v],
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("flip", [
+          ["h", attrs.h],
+          ["v", attrs.v],
+        ], text);
       },
-      attrs: ["h", "v"],
+      attrSettingHTMLs: {
+        h: () => {
+          return `<label>横:<input type="checkbox" class="h"></label>`;
+        },
+        v: () => {
+          return `<label>縦:<input type="checkbox" class="v"></label>`;
+        }
+      },
       defaults: {
-        h: false,
+        h: true,
         v: false
       }
     },
@@ -195,12 +236,14 @@ addEventListener("DOMContentLoaded", () => {
           ["transform", `rotate(${attrs.deg}deg)`],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["deg", attrs.deg === this.defaults.deg ? false : attrs.deg],
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("rotate", [["deg", attrs.deg === effectsData.rotate.defaults.deg ? false : attrs.deg]], text);
       },
-      attrs: ["deg"],
+      attrSettingHTMLs: {
+        deg: () => {
+          return `<div>角度:<input type="number" class="deg" placeholder="角度" step="1" value="${effectsData.rotate.defaults.deg}"></div>`;
+        },
+      },
       defaults: {
         deg: 0,
       }
@@ -211,11 +254,11 @@ addEventListener("DOMContentLoaded", () => {
           ["font-size", "200%"],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("x2", [], text);
       },
-      attrs: [],
+      attrSettingHTMLs: {
+      },
       defaults: {
       }
     },
@@ -225,11 +268,11 @@ addEventListener("DOMContentLoaded", () => {
           ["font-size", "300%"],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("x3", [], text);
       },
-      attrs: [],
+      attrSettingHTMLs: {
+      },
       defaults: {
       }
     },
@@ -239,11 +282,11 @@ addEventListener("DOMContentLoaded", () => {
           ["font-size", "400%"],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("x4", [], text);
       },
-      attrs: [],
+      attrSettingHTMLs: {
+      },
       defaults: {
       }
     },
@@ -253,13 +296,20 @@ addEventListener("DOMContentLoaded", () => {
           ["transform", `translate(${attrs.x}em, ${attrs.y}em)`],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["x", attrs.x === this.defaults.x ? false : attrs.x],
-          ["y", attrs.y === this.defaults.y ? false : attrs.y],
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("position", [
+          ["x", attrs.x === effectsData.position.defaults.x ? false : attrs.x],
+          ["y", attrs.y === effectsData.position.defaults.y ? false : attrs.y],
+        ], text);
       },
-      attrs: ["x", "y"],
+      attrSettingHTMLs: {
+        x: () => {
+          return `<div>x:<input type="number" class="x" placeholder="x" step="0.5" value="${effectsData.position.defaults.x}"></div>`;
+        },
+        y: () => {
+          return `<div>y:<input type="number" class="y" placeholder="y" step="0.5" value="${effectsData.position.defaults.y}"></div>`;
+        },
+      },
       defaults: {
         x: 0,
         y: 0
@@ -271,13 +321,17 @@ addEventListener("DOMContentLoaded", () => {
           ["transform", `scale(${attrs.x}, ${attrs.y})`],
         ];
       },
-      MFMPropsList: function (attrs) {
-        return [
-          ["x", attrs.x === this.defaults.x ? false : attrs.x],
-          ["y", attrs.y === this.defaults.y ? false : attrs.y],
-        ];
+      MFM: (text, attrs) => {
+        return addMFM("scale", [
+          ["x", attrs.x === effectsData.scale.defaults.x ? false : attrs.x],
+          ["y", attrs.y === effectsData.scale.defaults.y ? false : attrs.y],
+        ], text);
       },
-      attrs: ["x", "y"],
+      attrSettingHTMLs: {
+        x: () => {
+          return `<div>大きさx:<input type="number" class="x" placeholder="大きさx" step="0.1" min="-5" max="5" value="${effectsData.scale.defaults.x}"></div>`;
+        },
+      },
       defaults: {
         x: 1,
         y: 1
@@ -322,44 +376,44 @@ addEventListener("DOMContentLoaded", () => {
     addObjectElem.addEventListener("click", () => {
       objectsElem.insertAdjacentHTML("beforeend",
         `<div class="object" data-id="${id}">
-          <div class="object-controls-wrapper"><input type="text" class="object-input" placeholder="テキスト">
+          <div class="object-controls-wrapper"><input type="text" class="object-input" placeholder="テキスト" data-linkattr="text">
             <a class="button block-link object-setting"><i class="ti ti-settings"></i></a>
             <a class="button block-link object-delete"><i class="ti ti-x"></i></a>
           </div>
           <div class="object-settings-wrapper" hidden>
             <div class="object-setting-group">
-              <div>x:<input type="number" class="setting-x" placeholder="x" value="0" step="0.5"></div>
-              <div>y:<input type="number" class="setting-y" placeholder="y" value="0" step="0.5"></div>
+              <div>x:<input type="number" class="setting-x" placeholder="x" value="0" step="0.5" data-linkattr="x"></div>
+              <div>y:<input type="number" class="setting-y" placeholder="y" value="0" step="0.5" data-linkattr="y"></div>
             </div>
             <div class="object-setting-group">
-              <div>大きさx:<input type="number" class="setting-size-x" placeholder="大きさx" value="1" step="0.1" min="-5" max="5"></div>
-              <div>大きさy:<input type="number" class="setting-size-y" placeholder="大きさy" value="1" step="0.1" min="-5" max="5"></div>
+              <div>大きさx:<input type="number" class="setting-size-x" placeholder="大きさx" value="1" step="0.1" min="-5" max="5" data-linkattr="sizeX"></div>
+              <div>大きさy:<input type="number" class="setting-size-y" placeholder="大きさy" value="1" step="0.1" min="-5" max="5" data-linkattr="sizeY"></div>
             </div>
             <div class="object-setting-group">
-              <label><input type="checkbox" class="setting-bold"><b>太字</b></label>
-              <label><input type="checkbox" class="setting-strike"><s>打ち消し</s></label>
-              <label><input type="checkbox" class="setting-italic"><i>斜体</i></label>
-              <label><input type="checkbox" class="setting-center">中央揃え</label>
+              <label><input type="checkbox" class="setting-bold" data-linkattr="isBold"><b>太字</b></label>
+              <label><input type="checkbox" class="setting-strike" data-linkattr="isStrike"><s>打ち消し</s></label>
+              <label><input type="checkbox" class="setting-italic" data-linkattr="isItalic"><i>斜体</i></label>
+              <label><input type="checkbox" class="setting-center" data-linkattr="isCenter">中央揃え</label>
             </div>
             <div class="object-setting-group">
               <div>
                 フォント:
-                <select class="setting-font">
-                  <option>デフォルト</option>
-                  <option>明朝</option>
-                  <option>等幅</option>
-                  <option>筆記体</option>
-                  <option>ファンタジー</option>
+                <select class="setting-font" data-linkattr="font">
+                  <option value="default">デフォルト</option>
+                  <option value="serif">明朝</option>
+                  <option value="monospace">等幅</option>
+                  <option value="cursive">筆記体</option>
+                  <option value="fantasy">ファンタジー</option>
                 </select>
               </div>
             </div>
             <div class="object-setting-group">
-              <div>文字色:<input type="color" value="#c7d1d8" class="setting-fg"></div>
-              <label><input type="checkbox" class="setting-fg-default" checked>デフォルトを使用する</label>
+              <div>文字色:<input type="color" value="#c7d1d8" class="setting-fg" data-linkattr="fg"></div>
+              <label><input type="checkbox" class="setting-fg-default" data-linkattr="fgDefault" checked>デフォルトを使用する</label>
             </div>
             <div class="object-setting-group">
-              <div>背景色:<input type="color" value="#2d2d2d" class="setting-bg"></div>
-              <label><input type="checkbox" class="setting-bg-default" checked>デフォルトを使用する</label>
+              <div>背景色:<input type="color" value="#2d2d2d" class="setting-bg" data-linkattr="bg"></div>
+              <label><input type="checkbox" class="setting-bg-default" data-linkattr="bgDefault" checked>デフォルトを使用する</label>
             </div>
             <div class="object-effects-wrapper">
               <a class="block-link button add-effect"><i class="ti ti-wand"></i>エフェクトを追加</a>
@@ -370,20 +424,6 @@ addEventListener("DOMContentLoaded", () => {
       const objectElem = document.querySelectorAll(".object");
       const objectDeleteElem = document.querySelectorAll(".object-delete");
       const objectSettingElem = document.querySelectorAll(".object-setting");
-      const settingXElem = document.querySelectorAll(".setting-x");
-      const settingYElem = document.querySelectorAll(".setting-y");
-      const settingSizeXElem = document.querySelectorAll(".setting-size-x");
-      const settingSizeYElem = document.querySelectorAll(".setting-size-y");
-      const settingBoldElem = document.querySelectorAll(".setting-bold");
-      const settingStrikeElem = document.querySelectorAll(".setting-strike");
-      const settingItalicElem = document.querySelectorAll(".setting-italic");
-      const settingCenterElem = document.querySelectorAll(".setting-center");
-      const settingFgElem = document.querySelectorAll(".setting-fg");
-      const settingFgDefaultElem = document.querySelectorAll(".setting-fg-default");
-      const settingBgElem = document.querySelectorAll(".setting-bg");
-      const settingBgDefaultElem = document.querySelectorAll(".setting-bg-default");
-      const settingFontElem = document.querySelectorAll(".setting-font");
-      const objectInputElem = document.querySelectorAll(".object-input");
       const addEffectElem = document.querySelectorAll(".add-effect");
 
       objects[id] = {
@@ -405,7 +445,6 @@ addEventListener("DOMContentLoaded", () => {
         effects: [],
       };
 
-      // TODO: 短くする
       onEventAll(objectDeleteElem, "click", (e) => {
         e.target.closest(".object").remove();
         delete objects[e.target.closest(".object").dataset.id];
@@ -415,79 +454,18 @@ addEventListener("DOMContentLoaded", () => {
       onEventAll(objectSettingElem, "click", (e) => {
         e.target.closest(".object").querySelector(".object-settings-wrapper").toggleAttribute("hidden");
       });
-      onEventAll(settingXElem, "input", (e) => {
-        objects[e.target.closest(".object").dataset.id].x = e.target.value;
-        render();
-        generateMFM();
-      });
-      onEventAll(settingYElem, "input", (e) => {
-        objects[e.target.closest(".object").dataset.id].y = e.target.value;
-        render();
-        generateMFM();
-      });
-      onEventAll(settingSizeXElem, "input", (e) => {
-        if (e.target.value < -5) e.target.value = -5;
-        if (e.target.value > 5) e.target.value = 5;
-        objects[e.target.closest(".object").dataset.id].sizeX = e.target.value;
-        render();
-        generateMFM();
-      });
-      onEventAll(settingSizeYElem, "input", (e) => {
-        if (e.target.value < -5) e.target.value = -5;
-        if (e.target.value > 5) e.target.value = 5;
-        objects[e.target.closest(".object").dataset.id].sizeY = e.target.value;
-        render();
-        generateMFM();
-      });
-      onEventAll(settingBoldElem, "input", (e) => {
-        objects[e.target.closest(".object").dataset.id].isBold = e.target.checked;
-        render();
-        generateMFM();
-      });
-      onEventAll(settingStrikeElem, "input", (e) => {
-        objects[e.target.closest(".object").dataset.id].isStrike = e.target.checked;
-        render();
-        generateMFM();
-      });
-      onEventAll(settingItalicElem, "input", (e) => {
-        objects[e.target.closest(".object").dataset.id].isItalic = e.target.checked;
-        render();
-        generateMFM();
-      });
-      onEventAll(settingCenterElem, "input", (e) => {
-        objects[e.target.closest(".object").dataset.id].isCenter = e.target.checked;
-        render();
-        generateMFM();
-      });
-      onEventAll(settingFontElem, "change", (e) => {
-        const fontsNameJp = ["明朝", "等幅", "筆記体", "ファンタジー"];
-        const fontsNameEn = ["serif", "monospace", "cursive", "fantasy"];
-        objects[e.target.closest(".object").dataset.id].font = fontsNameEn?.[fontsNameJp.indexOf(e.target.value)] || null;
-        render();
-        generateMFM();
-      });
-      onEventAll(settingFgElem, "input", (e) => {
-        objects[e.target.closest(".object").dataset.id].fg = e.target.value;
-        render();
-        generateMFM();
-      });
-      onEventAll(settingFgDefaultElem, "input", (e) => {
-        objects[e.target.closest(".object").dataset.id].fgDefault = e.target.checked;
-        render();
-        generateMFM();
-      });
-      onEventAll(settingBgElem, "input", (e) => {
-        objects[e.target.closest(".object").dataset.id].bg = e.target.value;
-        render();
-        generateMFM();
-      });
-      onEventAll(settingBgDefaultElem, "input", (e) => {
-        objects[e.target.closest(".object").dataset.id].bgDefault = e.target.checked;
-        render();
-        generateMFM();
-      });
-      onEventAll(objectInputElem, "input", (e) => {
-        objects[e.target.closest(".object").dataset.id].text = e.target.value;
+      onEventAll(document.querySelectorAll(".object :is(input, select)"), "input", (e) => {
+        switch (e.target?.type || e.target.tagName) {
+          case "checkbox":
+            objects[e.target.closest(".object").dataset.id][e.target.dataset.linkattr] = e.target.checked;
+            break;
+          case "number":
+            objects[e.target.closest(".object").dataset.id][e.target.dataset.linkattr] = Number(e.target.value);
+            break;
+          default:
+            objects[e.target.closest(".object").dataset.id][e.target.dataset.linkattr] = e.target.value;
+            break;
+        }
         render();
         generateMFM();
       });
@@ -538,61 +516,18 @@ addEventListener("DOMContentLoaded", () => {
           const effectType = e.target.value === "none" ? null : e.target.value;
           objects[e.target.closest(".object").dataset.id].effects[e.target.closest(".object-effect").dataset.id] = {
             type: effectType,
-            values: effectsData[effectType]?.defaults || {},
+            values: structuredClone(effectsData[effectType]?.defaults) || {},
           };
           const thisEffectElem = e.target.closest(".object").querySelector(`.object-effect[data-id="${e.target.closest(".object-effect").dataset.id}"]`);
           thisEffectElem.querySelector(".object-effect-setting")?.remove();
           thisEffectElem.insertAdjacentHTML("beforeend", `<div class="object-effect-setting"></div>`);
           const thisEffectSettingElem = thisEffectElem.querySelector(".object-effect-setting");
-
-          if (["tada", "jelly", "twitch", "shake", "spin", "jump", "bounce", "sparkle", "rainbow"].includes(effectType)) {
-            thisEffectSettingElem.insertAdjacentHTML("beforeend",
-              `<div>速さ:<input type="number" class="speed" placeholder="速さ" step="0.1" min="0" value="${effectsData[effectType].defaults.speed}"></div>`);
-          }
-          if (effectType === "spin") {
-            thisEffectSettingElem.insertAdjacentHTML("beforeend",
-              `<select class="direction">
-              <option value="x">x</option>
-              <option value="y">y</option>
-              <option value="z" selected>z</option>
-            </select>
-            <select class="behavior">
-              <option value="normal" selected>時計回り</option>
-              <option value="reverse">反時計回り</option>
-              <option value="alternate">往復</option>
-            </select>`);
-          }
-          if (effectType === "flip") {
-            thisEffectSettingElem.insertAdjacentHTML("beforeend",
-              `<label>縦:<input type="checkbox" class="v"></label>
-            <label>横:<input type="checkbox" class="h"></label>`);
-          }
-          if (effectType === "rotate") {
-            thisEffectSettingElem.insertAdjacentHTML("beforeend",
-              `<div>角度:<input type="number" class="deg" placeholder="角度" step="1" value="0" data-default="0"></div>`);
-          }
-          if (effectType === "position") {
-            thisEffectSettingElem.insertAdjacentHTML("beforeend",
-              `<div>x:<input type="number" class="x" placeholder="x" step="0.5" value="0"></div>
-            <div>y:<input type="number" class="y" placeholder="y" step="0.5" value="0"></div>`);
-          }
-          if (effectType === "scale") {
-            thisEffectSettingElem.insertAdjacentHTML("beforeend",
-              `<div>大きさx:<input type="number" class="x" placeholder="大きさx" step="0.1" min="-5" max="5" value="1"></div>
-            <div>大きさy:<input type="number" class="y" placeholder="大きさy" step="0.1" min="-5" max="5" value="1"></div>`);
-          }
-
+          Object.values(effectsData[effectType]?.attrSettingHTMLs || {}).forEach((attrSettingHTML) => {
+            thisEffectSettingElem.insertAdjacentHTML("beforeend", attrSettingHTML());
+          });
           onEventAll(thisEffectSettingElem.querySelectorAll("input, select"), "input", (e) => {
             const thisEffect = objects[e.target.closest(".object").dataset.id].effects[e.target.closest(".object-effect").dataset.id];
-            switch (e.target.type) {
-              case "radio":
-                if (e.target.checked) {
-                  e.target.dataset.other.split(",").forEach((other) => {
-                    thisEffect.values[other] = false;
-                  });
-                  thisEffect.values[e.target.classList[0]] = true;
-                }
-                break;
+            switch (e.target?.type || e.target.tagName) {
               case "checkbox":
                 thisEffect.values[e.target.classList[0]] = e.target.checked;
                 break;
@@ -693,7 +628,7 @@ addEventListener("DOMContentLoaded", () => {
       thisObjectMFM = addMFM("position", [["x", value.x], ["y", value.y]], thisObjectMFM);
       if (value.font) thisObjectMFM = addMFM("font", [[value.font, true]], thisObjectMFM);
       value.effects.forEach((effect) => {
-        thisObjectMFM = addMFM(effect.type, effectsData[effect.type]?.MFMPropsList(effect.values), thisObjectMFM);
+        thisObjectMFM = effectsData[effect.type]?.MFM(thisObjectMFM, effect.values) || thisObjectMFM;
       });
       if (value.isCenter) thisObjectMFM = addNestLikeHTML("center", thisObjectMFM);
       allMFM += thisObjectMFM + "\n";
@@ -704,7 +639,7 @@ addEventListener("DOMContentLoaded", () => {
   function addMFM(name, properties, innerText) {
     // 値がfalse: 完全に省略
     // 値がtrue: プロパティ名のみ
-    if (properties !== undefined) {
+    if (name !== undefined) {
       let res = `$[${name}`;
       let firstAttrPrinted = false;
       properties.forEach((property) => {

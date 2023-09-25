@@ -42,6 +42,7 @@
 }
 
 #preview *:not(#preview>*) {
+  max-width: none;
   display: inline-block;
   line-height: 1.35em;
   font-family: inherit;
@@ -110,7 +111,6 @@ input[type="number"] {
   background-color: var(--primary-light);
   width: 100px;
   text-align: center;
-  outline: 0;
   border-radius: 10px;
   padding: 5px 10px;
 }
@@ -127,7 +127,6 @@ label {
 
 input[type="checkbox"] {
   accent-color: var(--primary-deep);
-  outline: 0;
   cursor: pointer;
   margin-right: 5px;
 }
@@ -136,7 +135,6 @@ select {
   border: 0;
   background-color: var(--primary-light);
   text-align: center;
-  outline: 0;
   border-radius: 10px;
   padding: 5px 10px;
   width: 200px;
@@ -144,7 +142,6 @@ select {
 
 input[type="color"] {
   border: 0;
-  outline: 0;
   background-color: transparent;
   padding: 0;
   vertical-align: -10px;
@@ -159,7 +156,6 @@ input[type="color"] {
   border: solid 1px var(--primary-deep);
   border-radius: 10px 0px 0px 10px;
   padding: 5px 15px;
-  outline: 0;
   caret-color: var(--primary-deep);
 }
 
