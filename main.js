@@ -6,6 +6,7 @@ addEventListener("DOMContentLoaded", () => {
   const messageElem = document.getElementById("message");
   const effectsData = {
     tada: {
+      description: "ばーん(tada)",
       cssList: (attrs) => {
         return [
           ["font-size", "150%"],
@@ -25,6 +26,7 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     jelly: {
+      description: "もちもち(jelly)",
       cssList: (attrs) => {
         return [
           ["animation", `jelly ${attrs.speed}s linear infinite`],
@@ -43,6 +45,7 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     twitch: {
+      description: "がたがた(twitch)",
       cssList: (attrs) => {
         return [
           ["animation", `twitch ${attrs.speed}s linear infinite`],
@@ -61,6 +64,7 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     shake: {
+      description: "ぶるぶる(shake)",
       cssList: (attrs) => {
         return [
           ["animation", `shake ${attrs.speed}s linear infinite`],
@@ -79,6 +83,7 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     spin: {
+      description: "くるくる(spin)",
       cssList: (attrs) => {
         return [
           ["animation", `spin-${attrs.direction} ${attrs.speed}s linear infinite ${attrs.behavior} `],
@@ -120,6 +125,7 @@ addEventListener("DOMContentLoaded", () => {
       },
     },
     jump: {
+      description: "ぴょんぴょん(jump)",
       cssList: (attrs) => {
         return [
           ["animation", `jump ${attrs.speed}s linear infinite`],
@@ -138,6 +144,7 @@ addEventListener("DOMContentLoaded", () => {
       },
     },
     bounce: {
+      description: "ぴょんもち(bounce)",
       cssList: (attrs) => {
         return [
           ["animation", `bounce ${attrs.speed}s linear infinite`],
@@ -156,6 +163,7 @@ addEventListener("DOMContentLoaded", () => {
       },
     },
     sparkle: {
+      description: "きらきら(sparkle)",
       cssList: (attrs) => {
         return [
           ["animation", `sparkle ${attrs.speed}s linear infinite`],
@@ -174,6 +182,7 @@ addEventListener("DOMContentLoaded", () => {
       },
     },
     rainbow: {
+      description: "ゲーミング(rainbow)",
       cssList: (attrs) => {
         return [
           ["animation", `rainbow ${attrs.speed}s linear infinite`],
@@ -192,6 +201,7 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     blur: {
+      description: "ぼわぼわ(blur)",
       cssList: (attrs) => {
         return [
           ["filter", "blur(6px)"],
@@ -206,6 +216,7 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     flip: {
+      description: "反転(flip)",
       cssList: (attrs) => {
         return [
           ["transform", `scaleX(${attrs.h ? -1 : 1}) scaleY(${attrs.v ? -1 : 1})`],
@@ -231,6 +242,7 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     rotate: {
+      description: "回転(rotate)",
       cssList: (attrs) => {
         return [
           ["transform", `rotate(${attrs.deg}deg)`],
@@ -249,6 +261,7 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     x2: {
+      description: "文字サイズ2倍(x2)",
       cssList: (attrs) => {
         return [
           ["font-size", "200%"],
@@ -263,6 +276,7 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     x3: {
+      description: "文字サイズ3倍(x3)",
       cssList: (attrs) => {
         return [
           ["font-size", "300%"],
@@ -277,6 +291,7 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     x4: {
+      description: "文字サイズ4倍(x4)",
       cssList: (attrs) => {
         return [
           ["font-size", "400%"],
@@ -291,6 +306,7 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     position: {
+      description: "移動(position)",
       cssList: (attrs) => {
         return [
           ["transform", `translate(${attrs.x}em, ${attrs.y}em)`],
@@ -316,6 +332,7 @@ addEventListener("DOMContentLoaded", () => {
       }
     },
     scale: {
+      description: "拡大(scale)",
       cssList: (attrs) => {
         return [
           ["transform", `scale(${attrs.x}, ${attrs.y})`],
@@ -470,28 +487,13 @@ addEventListener("DOMContentLoaded", () => {
         generateMFM();
       });
       onEventAll(addEffectElem, "click", (e) => {
+        const effectSelectHTML = Object.entries(effectsData).map((effect) => `<option value="${effect[0]}">${effect[1].description}</option>`).join("");
         e.target.closest(".object-effects-wrapper").querySelector(".add-effect").insertAdjacentHTML("beforebegin",
           `<div class="object-effect" data-id="${effectId}">
             <div class="object-effect-input">
               <select class="effect-type">
                 <option value="none" selected>none</option>
-                <option value="tada">ばーん(tada)</option>
-                <option value="jelly">もちもち(jelly)</option>
-                <option value="twitch">がたがた(twitch)</option>
-                <option value="shake">ぶるぶる(shake)</option>
-                <option value="spin">くるくる(spin)</option>
-                <option value="jump">ぴょんぴょん(jump)</option>
-                <option value="bounce">ぴょんもち(bounce)</option>
-                <option value="sparkle">きらきら(sparkle)</option>
-                <option value="rainbow">ゲーミング(rainbow)</option>
-                <option value="blur">ぼわぼわ(blur)</option>
-                <option value="flip">反転(flip)</option>
-                <option value="rotate">回転(rotate)</option>
-                <option value="x2">文字サイズ2倍(x2)</option>
-                <option value="x3">文字サイズ3倍(x3)</option>
-                <option value="x4">文字サイズ4倍(x4)</option>
-                <option value="position">移動(position)</option>
-                <option value="scale">拡大(scale)</option>
+                ${effectSelectHTML}
               </select>
               <a class="button block-link effect-delete"><i class="ti ti-x"></i></a>
             </div>
@@ -518,6 +520,7 @@ addEventListener("DOMContentLoaded", () => {
             type: effectType,
             values: structuredClone(effectsData[effectType]?.defaults) || {},
           };
+
           const thisEffectElem = e.target.closest(".object").querySelector(`.object-effect[data-id="${e.target.closest(".object-effect").dataset.id}"]`);
           thisEffectElem.querySelector(".object-effect-setting")?.remove();
           thisEffectElem.insertAdjacentHTML("beforeend", `<div class="object-effect-setting"></div>`);
@@ -525,8 +528,11 @@ addEventListener("DOMContentLoaded", () => {
           Object.values(effectsData[effectType]?.attrSettingHTMLs || {}).forEach((attrSettingHTML) => {
             thisEffectSettingElem.insertAdjacentHTML("beforeend", attrSettingHTML());
           });
+
           onEventAll(thisEffectSettingElem.querySelectorAll("input, select"), "input", (e) => {
-            const thisEffect = objects[e.target.closest(".object").dataset.id].effects[e.target.closest(".object-effect").dataset.id];
+            const thisObjectId = e.target.closest(".object").dataset.id;
+            const thisEffectId = e.target.closest(".object-effect").dataset.id;
+            const thisEffect = objects[thisObjectId].effects[thisEffectId];
             switch (e.target?.type || e.target.tagName) {
               case "checkbox":
                 thisEffect.values[e.target.classList[0]] = e.target.checked;
@@ -593,6 +599,7 @@ addEventListener("DOMContentLoaded", () => {
       objectElem = nest(objectElem);
       previewElem.appendChild(objectElem);
     });
+    twemoji.parse(previewElem);
   }
 
   function nestAndSetStyle(elem, styles) {
