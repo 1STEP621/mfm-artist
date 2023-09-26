@@ -287,7 +287,7 @@ addEventListener("DOMContentLoaded", () => {
       },
       attrSettingHTMLs: {
         deg: () => {
-          return `<div>角度:<input type="number" class="deg" placeholder="角度" value="${effectsData.rotate.defaults.deg} step="any""></div>`;
+          return `<div>角度:<input type="number" class="deg" placeholder="角度" value="${effectsData.rotate.defaults.deg}" step="any""></div>`;
         },
       },
       defaults: {
