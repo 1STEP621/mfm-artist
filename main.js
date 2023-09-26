@@ -234,6 +234,38 @@ addEventListener("DOMContentLoaded", () => {
         distance: 1,
       }
     },
+    blink: {
+      description: "点滅(bounce + flip + position)",
+      cssList: (attrs) => {
+        let res = [];
+        res = res.concat(effectsData.position.cssList({x: 0, y: 999999}));
+        res = res.concat(effectsData.bounce.cssList({speed: attrs.speed}));
+        res = res.concat(effectsData.position.cssList({x: 0, y: -999999}));
+        res = res.concat(effectsData.flip.cssList({h: false, v: true}));
+        res = res.concat(effectsData.bounce.cssList({speed: attrs.speed}));
+        res = res.concat(effectsData.flip.cssList({h: false, v: true}));
+        console.log(res);
+        return res;
+      },
+      MFM: (text, attrs) => {
+        let res = text;
+        res = effectsData.position.MFM(res, {x: 0, y: 999999});
+        res = effectsData.bounce.MFM(res, {speed: attrs.speed});
+        res = effectsData.position.MFM(res, {x: 0, y: -999999});
+        res = effectsData.flip.MFM(res, {h: false, v: true});
+        res = effectsData.bounce.MFM(res, {speed: attrs.speed});
+        res = effectsData.flip.MFM(res, {h: false, v: true});
+        return res;
+      },
+      attrSettingHTMLs: {
+        speed: () => {
+          return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.blink.defaults.speed}" step="any"></div>`;
+        },
+      },
+      defaults: {
+        speed: 0.75,
+      }
+    },
     blur: {
       description: "ぼわぼわ(blur)",
       cssList: (attrs) => {
@@ -487,7 +519,7 @@ addEventListener("DOMContentLoaded", () => {
         isStrike: false,
         isItalic: false,
         isCenter: false,
-        font: null,
+        font: "default",
         fg: "c7d1d8",
         fgDefault: true,
         bg: "2d2d2d",
@@ -617,6 +649,9 @@ addEventListener("DOMContentLoaded", () => {
           objectElem.appendChild(elem);
         }
       });
+      value.effects.forEach((effect) => {
+        objectElem = nestAndSetStyle(objectElem, effectsData[effect.type]?.cssList(effect.values));
+      });
       objectElem = nestAndSetStyle(objectElem, [["fontWeight", value.isBold ? "bold" : null]]);
       objectElem = nestAndSetStyle(objectElem, [["textDecoration", value.isStrike ? "line-through" : null]]);
       objectElem = nestAndSetStyle(objectElem, [["fontStyle", value.isItalic ? "italic" : null]]);
@@ -625,9 +660,6 @@ addEventListener("DOMContentLoaded", () => {
       objectElem = nestAndSetStyle(objectElem, [["transform", `scale(${value.sizeX}, ${value.sizeY})`]]);
       objectElem = nestAndSetStyle(objectElem, [["transform", `translate(${value.x}em, ${value.y}em)`]]);
       objectElem = nestAndSetStyle(objectElem, [["fontFamily", value.font || null]]);
-      value.effects.forEach((effect) => {
-        objectElem = nestAndSetStyle(objectElem, effectsData[effect.type]?.cssList(effect.values));
-      });
       objectElem = nestAndSetStyle(objectElem, [["textAlign", value.isCenter ? "center" : null]]);
       objectElem = nest(objectElem);
       previewElem.appendChild(objectElem);
@@ -663,6 +695,10 @@ addEventListener("DOMContentLoaded", () => {
     let allMFM = "";
     Object.values(objects).forEach((value) => {
       let thisObjectMFM = value.text;
+      if (value.font != "default") thisObjectMFM = addMFM("font", [[value.font, true]], thisObjectMFM);
+      value.effects.forEach((effect) => {
+        thisObjectMFM = effectsData[effect.type]?.MFM(thisObjectMFM, effect.values) || thisObjectMFM;
+      });
       if (value.isBold) thisObjectMFM = addNest("**", thisObjectMFM);
       if (value.isStrike) thisObjectMFM = addNest("~~", thisObjectMFM);
       if (value.isItalic) thisObjectMFM = addNestLikeHTML("i", thisObjectMFM);
@@ -670,10 +706,6 @@ addEventListener("DOMContentLoaded", () => {
       if (!value.bgDefault) thisObjectMFM = addMFM("bg", [["color", value.bg.substring(1, 7)]], thisObjectMFM);
       if (value.sizeX !== 1 || value.sizeY !== 1) thisObjectMFM = addMFM("scale", [["x", value.sizeX == 1 ? false : value.sizeX], ["y", value.sizeY == 1 ? false: value.sizeY]], thisObjectMFM);
       if (value.x !== 0 || value.y !== 0) thisObjectMFM = addMFM("position", [["x", value.x == 0 ? false: value.x], ["y", value.y == 0 ? false : value.y]], thisObjectMFM);
-      if (value.font) thisObjectMFM = addMFM("font", [[value.font, true]], thisObjectMFM);
-      value.effects.forEach((effect) => {
-        thisObjectMFM = effectsData[effect.type]?.MFM(thisObjectMFM, effect.values) || thisObjectMFM;
-      });
       if (value.isCenter) thisObjectMFM = addNestLikeHTML("center", thisObjectMFM);
       allMFM += thisObjectMFM + "\n";
       resultElem.innerText = allMFM;
