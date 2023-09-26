@@ -520,9 +520,9 @@ addEventListener("DOMContentLoaded", () => {
         isItalic: false,
         isCenter: false,
         font: "default",
-        fg: "c7d1d8",
+        fg: "#c7d1d8",
         fgDefault: true,
-        bg: "2d2d2d",
+        bg: "#2d2d2d",
         bgDefault: true,
         effects: [],
       };
@@ -649,14 +649,14 @@ addEventListener("DOMContentLoaded", () => {
           objectElem.appendChild(elem);
         }
       });
+      objectElem = nestAndSetStyle(objectElem, [["color", value.fgDefault ? null : value.fg]]);
+      objectElem = nestAndSetStyle(objectElem, [["backgroundColor", value.bgDefault ? null : value.bg]]);
       value.effects.forEach((effect) => {
         objectElem = nestAndSetStyle(objectElem, effectsData[effect.type]?.cssList(effect.values));
       });
       objectElem = nestAndSetStyle(objectElem, [["fontWeight", value.isBold ? "bold" : null]]);
       objectElem = nestAndSetStyle(objectElem, [["textDecoration", value.isStrike ? "line-through" : null]]);
       objectElem = nestAndSetStyle(objectElem, [["fontStyle", value.isItalic ? "italic" : null]]);
-      objectElem = nestAndSetStyle(objectElem, [["color", value.fgDefault ? null : value.fg]]);
-      objectElem = nestAndSetStyle(objectElem, [["backgroundColor", value.bgDefault ? null : value.bg]]);
       objectElem = nestAndSetStyle(objectElem, [["transform", `scale(${value.sizeX}, ${value.sizeY})`]]);
       objectElem = nestAndSetStyle(objectElem, [["transform", `translate(${value.x}em, ${value.y}em)`]]);
       objectElem = nestAndSetStyle(objectElem, [["fontFamily", value.font || null]]);
@@ -695,17 +695,17 @@ addEventListener("DOMContentLoaded", () => {
     let allMFM = "";
     Object.values(objects).forEach((value) => {
       let thisObjectMFM = value.text;
-      if (value.font != "default") thisObjectMFM = addMFM("font", [[value.font, true]], thisObjectMFM);
+      if (!value.fgDefault) thisObjectMFM = addMFM("fg", [["color", value.fg.substring(1, 7)]], thisObjectMFM);
+      if (!value.bgDefault) thisObjectMFM = addMFM("bg", [["color", value.bg.substring(1, 7)]], thisObjectMFM);
       value.effects.forEach((effect) => {
         thisObjectMFM = effectsData[effect.type]?.MFM(thisObjectMFM, effect.values) || thisObjectMFM;
       });
       if (value.isBold) thisObjectMFM = addNest("**", thisObjectMFM);
       if (value.isStrike) thisObjectMFM = addNest("~~", thisObjectMFM);
       if (value.isItalic) thisObjectMFM = addNestLikeHTML("i", thisObjectMFM);
-      if (!value.fgDefault) thisObjectMFM = addMFM("fg", [["color", value.fg.substring(1, 7)]], thisObjectMFM);
-      if (!value.bgDefault) thisObjectMFM = addMFM("bg", [["color", value.bg.substring(1, 7)]], thisObjectMFM);
       if (value.sizeX !== 1 || value.sizeY !== 1) thisObjectMFM = addMFM("scale", [["x", value.sizeX == 1 ? false : value.sizeX], ["y", value.sizeY == 1 ? false: value.sizeY]], thisObjectMFM);
       if (value.x !== 0 || value.y !== 0) thisObjectMFM = addMFM("position", [["x", value.x == 0 ? false: value.x], ["y", value.y == 0 ? false : value.y]], thisObjectMFM);
+      if (value.font != "default") thisObjectMFM = addMFM("font", [[value.font, true]], thisObjectMFM);
       if (value.isCenter) thisObjectMFM = addNestLikeHTML("center", thisObjectMFM);
       allMFM += thisObjectMFM + "\n";
       resultElem.innerText = allMFM;
