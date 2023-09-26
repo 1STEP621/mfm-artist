@@ -267,6 +267,7 @@ body {
 
 .effect-type {
   flex: 1;
+  width: 100%;
   background-color: #d7eaf1;
   border-radius: 0;
 }
