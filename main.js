@@ -1,3 +1,5 @@
+// TODO: 一般設定とエフェクトで同じ処理でも別々の実装をしているのを直す
+// TODO: 一般設定の情報があちこちに散らばっているのを直す
 addEventListener("DOMContentLoaded", () => {
   const domainElem = document.getElementById("domain");
   const goElem = document.getElementById("go");
@@ -661,7 +663,6 @@ addEventListener("DOMContentLoaded", () => {
       objectElem = nestAndSetStyle(objectElem, [["transform", `translate(${value.x}em, ${value.y}em)`]]);
       objectElem = nestAndSetStyle(objectElem, [["fontFamily", value.font || null]]);
       objectElem = nestAndSetStyle(objectElem, [["textAlign", value.isCenter ? "center" : null]]);
-      objectElem = nest(objectElem);
       previewElem.appendChild(objectElem);
     });
     twemoji.parse(previewElem);
