@@ -416,6 +416,9 @@ addEventListener("DOMContentLoaded", () => {
         x: () => {
           return `<div>大きさx:<input type="number" class="x" placeholder="大きさx" max="5" value="${effectsData.scale.defaults.x}" step="any"></div>`;
         },
+        y: () => {
+          return `<div>大きさy:<input type="number" class="y" placeholder="大きさy" max="5" value="${effectsData.scale.defaults.y}" step="any"></div>`;
+        }
       },
       defaults: {
         x: 1,
