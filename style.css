@@ -255,10 +255,20 @@ body {
   display: flex;
 }
 
+.effect-up {
+  padding: 10px;
+  border-radius: 10px 0px 0px 10px;
+}
+
+.effect-down {
+  padding: 10px;
+  border-radius: 0;
+}
+
 .effect-type {
   flex: 1;
   background-color: #d7eaf1;
-  border-radius: 10px 0 0 10px;
+  border-radius: 0;
 }
 
 .effect-delete {

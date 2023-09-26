@@ -588,6 +588,8 @@ addEventListener("DOMContentLoaded", () => {
         e.target.closest(".object-effects-wrapper").querySelector(".add-effect").insertAdjacentHTML("beforebegin",
           `<div class="object-effect" data-id="${effectId}">
             <div class="object-effect-input">
+              <a class="button block-link effect-up"><i class="ti ti-arrow-badge-up"></i></a>
+              <a class="button block-link effect-down"><i class="ti ti-arrow-badge-down"></i></a>
               <select class="effect-type">
                 <option value="none" selected>none</option>
                 ${effectSelectHTML}
@@ -601,9 +603,37 @@ addEventListener("DOMContentLoaded", () => {
           values: {},
         });
 
+        const effectUpElem = document.querySelectorAll(".effect-up");
+        const effectDownElem = document.querySelectorAll(".effect-down");
         const effectDeleteElem = document.querySelectorAll(".effect-delete");
         const effectTypeElem = document.querySelectorAll(".effect-type");
 
+        onEventAll(effectUpElem, "click", (e) => {
+          const thisEffectElem = e.target.closest(".object-effect");
+          const thisEffectId = thisEffectElem.dataset.id;
+          const thisEffect = objects[e.target.closest(".object").dataset.id].effects[thisEffectId];
+          const prevEffectElem = thisEffectElem.closest(".object-effect").previousElementSibling;
+          const prevEffectId = prevEffectElem.dataset.id;
+          const prevEffect = objects[e.target.closest(".object").dataset.id].effects[prevEffectId];
+          [objects[e.target.closest(".object").dataset.id].effects[thisEffectId], objects[e.target.closest(".object").dataset.id].effects[prevEffectId]] = [prevEffect, thisEffect];
+          thisEffectElem.closest(".object-effects-wrapper").insertBefore(thisEffectElem, prevEffectElem);
+          [prevEffectElem.dataset.id, thisEffectElem.dataset.id] = [thisEffectId, prevEffectId];
+          render();
+          generateMFM();
+        });
+        onEventAll(effectDownElem, "click", (e) => {
+          const thisEffectElem = e.target.closest(".object-effect");
+          const thisEffectId = thisEffectElem.dataset.id;
+          const thisEffect = objects[e.target.closest(".object").dataset.id].effects[thisEffectId];
+          const nextEffectElem = thisEffectElem.closest(".object-effect").nextElementSibling;
+          const nextEffectId = nextEffectElem.dataset.id;
+          const nextEffect = objects[e.target.closest(".object").dataset.id].effects[nextEffectId];
+          [objects[e.target.closest(".object").dataset.id].effects[thisEffectId], objects[e.target.closest(".object").dataset.id].effects[nextEffectId]] = [nextEffect, thisEffect];
+          thisEffectElem.closest(".object-effects-wrapper").insertBefore(nextEffectElem, thisEffectElem);
+          [nextEffectElem.dataset.id, thisEffectElem.dataset.id] = [thisEffectId, nextEffectId];
+          render();
+          generateMFM();
+        });
         onEventAll(effectDeleteElem, "click", (e) => {
           delete objects[e.target.closest(".object").dataset.id].effects[e.target.closest(".object-effect").dataset.id];
           e.target.closest(".object-effect").remove();
