@@ -158,13 +158,23 @@ input[type="color"] {
   height: 37px;
 }
 
+.object-up {
+  padding: 10px;
+  border-radius: 10px 0px 0px 10px;
+}
+
+.object-down {
+  padding: 10px;
+  border-radius: 0;
+}
+
 .object-input {
   flex: 1;
   min-width: 0;
   background-color: transparent;
   border: solid 1px var(--primary-deep);
-  border-radius: 10px 0px 0px 10px;
-  padding: 5px 15px;
+  border-radius: 0;
+  padding: 0 15px;
   caret-color: var(--primary-deep);
 }
 
@@ -173,7 +183,7 @@ input[type="color"] {
 }
 
 .object-setting {
-  border-radius: 0px;
+  border-radius: 0;
   padding: 10px;
 }
 

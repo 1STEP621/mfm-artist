@@ -461,7 +461,10 @@ addEventListener("DOMContentLoaded", () => {
     addObjectElem.addEventListener("click", () => {
       objectsElem.insertAdjacentHTML("beforeend",
         `<div class="object" data-id="${id}">
-          <div class="object-controls-wrapper"><input type="text" class="object-input" placeholder="テキスト" data-linkattr="text">
+          <div class="object-controls-wrapper">
+            <a class="button block-link object-up"><i class="ti ti-arrow-badge-up"></i></a>
+            <a class="button block-link object-down"><i class="ti ti-arrow-badge-down"></i></a>
+            <input type="text" class="object-input" placeholder="テキスト" data-linkattr="text">
             <a class="button block-link object-setting"><i class="ti ti-settings"></i></a>
             <a class="button block-link object-delete"><i class="ti ti-x"></i></a>
           </div>
@@ -508,10 +511,11 @@ addEventListener("DOMContentLoaded", () => {
 
       const objectDeleteElem = document.querySelectorAll(".object-delete");
       const objectSettingElem = document.querySelectorAll(".object-setting");
+      const objectUpElem = document.querySelectorAll(".object-up");
+      const objectDownElem = document.querySelectorAll(".object-down");
       const addEffectElem = document.querySelectorAll(".add-effect");
 
       objects[id] = {
-        id: id,
         text: "",
         x: 0,
         y: 0,
@@ -537,6 +541,32 @@ addEventListener("DOMContentLoaded", () => {
       });
       onEventAll(objectSettingElem, "click", (e) => {
         e.target.closest(".object").querySelector(".object-settings-wrapper").toggleAttribute("hidden");
+      });
+      onEventAll(objectUpElem, "click", (e) => {
+        const thisObjectElem = e.target.closest(".object");
+        const thisObjectId = thisObjectElem.dataset.id;
+        const thisObject = objects[thisObjectId];
+        const prevObjectElem = thisObjectElem.closest(".object").previousElementSibling;
+        const prevObjectId = prevObjectElem.dataset.id;
+        const prevObject = objects[prevObjectId];
+        [objects[thisObjectId], objects[prevObjectId]] = [prevObject, thisObject];
+        objectsElem.insertBefore(thisObjectElem, prevObjectElem);
+        [prevObjectElem.dataset.id, thisObjectElem.dataset.id] = [thisObjectId, prevObjectId];
+        render();
+        generateMFM();
+      });
+      onEventAll(objectDownElem, "click", (e) => {
+        const thisObjectElem = e.target.closest(".object");
+        const thisObjectId = thisObjectElem.dataset.id;
+        const thisObject = objects[thisObjectId];
+        const nextObjectElem = thisObjectElem.closest(".object").nextElementSibling;
+        const nextObjectId = nextObjectElem.dataset.id;
+        const nextObject = objects[nextObjectId];
+        [objects[thisObjectId], objects[nextObjectId]] = [nextObject, thisObject];
+        objectsElem.insertBefore(nextObjectElem, thisObjectElem);
+        [nextObjectElem.dataset.id, thisObjectElem.dataset.id] = [thisObjectId, nextObjectId];
+        render();
+        generateMFM();
       });
       onEventAll(document.querySelectorAll(".object :is(input, select)"), "input", (e) => {
         switch (e.target?.type || e.target.tagName) {
