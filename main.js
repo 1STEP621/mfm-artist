@@ -648,7 +648,7 @@ addEventListener("DOMContentLoaded", () => {
         generateMFM();
       });
       onEventAll(addEffectElem, "click", (e) => {
-        const effectSelectHTML = Object.entries(effectsData).map((effect) => `<option value="${effect[0]}">${effect[1].description}</option>`).join("");
+        const effectSelectHTML = Object.entries(effectsData).map(([prop, val]) => `<option value="${prop}">${val.description}</option>`).join("");
         e.target.closest(".object-effects-wrapper").querySelector(".add-effect").insertAdjacentHTML("beforebegin",
           `<div class="object-effect" data-id="${effectId}">
             <div class="object-effect-input">
