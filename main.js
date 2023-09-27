@@ -11,12 +11,13 @@ addEventListener("DOMContentLoaded", () => {
       description: "ばーん(tada)",
       cssList: (attrs) => {
         return [
-          ["font-size", "150%"],
-          ["animation", `tada ${attrs.speed}s linear infinite`],
+          {"font-size": "150%", "animation": `tada ${attrs.speed}s linear infinite`},
         ];
       },
       MFM: (text, attrs) => {
-        return addMFM("tada", [["speed", attrs.speed === effectsData.tada.defaults.speed ? false : attrs.speed + "s"]], text);
+        return addMFM("tada", [
+          {"speed": attrs.speed === effectsData.tada.defaults.speed ? false : attrs.speed + "s"}
+        ], text);
       },
       attrSettingHTMLs: {
         speed: () => {
@@ -31,11 +32,13 @@ addEventListener("DOMContentLoaded", () => {
       description: "もちもち(jelly)",
       cssList: (attrs) => {
         return [
-          ["animation", `jelly ${attrs.speed}s linear infinite`],
+          {"animation": `jelly ${attrs.speed}s linear infinite`},
         ];
       },
       MFM: (text, attrs) => {
-        return addMFM("jelly", [["speed", attrs.speed === effectsData.jelly.defaults.speed ? false : attrs.speed + "s"]], text);
+        return addMFM("jelly", [
+          {"speed": attrs.speed === effectsData.jelly.defaults.speed ? false : attrs.speed + "s"}
+        ], text);
       },
       attrSettingHTMLs: {
         speed: () => {
@@ -50,11 +53,13 @@ addEventListener("DOMContentLoaded", () => {
       description: "がたがた(twitch)",
       cssList: (attrs) => {
         return [
-          ["animation", `twitch ${attrs.speed}s linear infinite`],
+          {"animation": `twitch ${attrs.speed}s linear infinite`},
         ];
       },
       MFM: (text, attrs) => {
-        return addMFM("twitch", [["speed", attrs.speed === effectsData.twitch.defaults.speed ? false : attrs.speed + "s"]], text);
+        return addMFM("twitch", [
+          {"speed": attrs.speed === effectsData.twitch.defaults.speed ? false : attrs.speed + "s"}
+        ], text);
       },
       attrSettingHTMLs: {
         speed: () => {
@@ -69,11 +74,13 @@ addEventListener("DOMContentLoaded", () => {
       description: "ぶるぶる(shake)",
       cssList: (attrs) => {
         return [
-          ["animation", `shake ${attrs.speed}s linear infinite`],
+          {"animation": `shake ${attrs.speed}s linear infinite`},
         ];
       },
       MFM: (text, attrs) => {
-        return addMFM("shake", [["speed", attrs.speed === effectsData.shake.defaults.speed ? false : attrs.speed + "s"]], text);
+        return addMFM("shake", [
+          {"speed": attrs.speed === effectsData.shake.defaults.speed ? false : attrs.speed + "s"}
+        ], text);
       },
       attrSettingHTMLs: {
         speed: () => {
@@ -88,17 +95,19 @@ addEventListener("DOMContentLoaded", () => {
       description: "くるくる(spin)",
       cssList: (attrs) => {
         return [
-          ["animation", `spin-${attrs.direction} ${attrs.speed}s linear infinite ${attrs.behavior} `],
+          {"animation": `spin-${attrs.direction} ${attrs.speed}s linear infinite ${attrs.behavior} `},
         ];
       },
       MFM: (text, attrs) => {
         return addMFM("spin", [
-          ["speed", attrs.speed === effectsData.spin.defaults.speed ? false : attrs.speed + "s"],
-          ["x", attrs.direction === "x"],
-          ["y", attrs.direction === "y"],
-          ["z", false],
-          ["left", attrs.behavior === "reverse"],
-          ["alternate", attrs.behavior === "alternate"]
+          {
+            "speed": attrs.speed === effectsData.spin.defaults.speed ? false : attrs.speed + "s",
+            "x": attrs.direction === "x",
+            "y": attrs.direction === "y",
+            "z": false,
+            "left": attrs.behavior === "reverse",
+            "alternate": attrs.behavior === "alternate"
+          }
         ], text);
       },
       attrSettingHTMLs: {
@@ -130,11 +139,13 @@ addEventListener("DOMContentLoaded", () => {
       description: "ぴょんぴょん(jump)",
       cssList: (attrs) => {
         return [
-          ["animation", `jump ${attrs.speed}s linear infinite`],
+          {'animation': `jump ${attrs.speed}s linear infinite`}
         ];
       },
       MFM: (text, attrs) => {
-        return addMFM("jump", [["speed", attrs.speed === effectsData.jump.defaults.speed ? false : attrs.speed + "s"]], text);
+        return addMFM("jump", [
+          {"speed": attrs.speed === effectsData.jump.defaults.speed ? false : attrs.speed + "s"}
+        ], text);
       },
       attrSettingHTMLs: {
         speed: () => {
@@ -149,11 +160,13 @@ addEventListener("DOMContentLoaded", () => {
       description: "ぴょんもち(bounce)",
       cssList: (attrs) => {
         return [
-          ["animation", `bounce ${attrs.speed}s linear infinite`],
+          {"animation": `bounce ${attrs.speed}s linear infinite`},
         ];
       },
       MFM: (text, attrs) => {
-        return addMFM("bounce", [["speed", attrs.speed === effectsData.bounce.defaults.speed ? false : attrs.speed + "s"]], text);
+        return addMFM("bounce", [
+          {"speed": attrs.speed === effectsData.bounce.defaults.speed ? false : attrs.speed + "s"}
+        ], text);
       },
       attrSettingHTMLs: {
         speed: () => {
@@ -168,11 +181,13 @@ addEventListener("DOMContentLoaded", () => {
       description: "きらきら(sparkle)",
       cssList: (attrs) => {
         return [
-          ["animation", `sparkle ${attrs.speed}s linear infinite`],
+          {"animation": `sparkle ${attrs.speed}s linear infinite`},
         ];
       },
       MFM: (text, attrs) => {
-        return addMFM("sparkle", [["speed", attrs.speed === effectsData.sparkle.defaults.speed ? false : attrs.speed + "s"]], text);
+        return addMFM("sparkle", [
+          {"speed": attrs.speed === effectsData.sparkle.defaults.speed ? false : attrs.speed + "s"}
+        ], text);
       },
       attrSettingHTMLs: {
         speed: () => {
@@ -187,11 +202,13 @@ addEventListener("DOMContentLoaded", () => {
       description: "ゲーミング(rainbow)",
       cssList: (attrs) => {
         return [
-          ["animation", `rainbow ${attrs.speed}s linear infinite`],
+          {"animation": `rainbow ${attrs.speed}s linear infinite`},
         ];
       },
       MFM: (text, attrs) => {
-        return addMFM("rainbow", [["speed", attrs.speed === effectsData.rainbow.defaults.speed ? false : attrs.speed + "s"]], text);
+        return addMFM("rainbow", [
+          {"speed": attrs.speed === effectsData.rainbow.defaults.speed ? false : attrs.speed + "s"}
+        ], text);
       },
       attrSettingHTMLs: {
         speed: () => {
@@ -272,11 +289,13 @@ addEventListener("DOMContentLoaded", () => {
       description: "ぼわぼわ(blur)",
       cssList: (attrs) => {
         return [
-          ["filter", "blur(6px)"],
+          {"filter": "blur(6px)"},
         ];
       },
       MFM: (text, attrs) => {
-        return addMFM("blur", [["speed", attrs.speed === effectsData.blur.defaults.speed ? false : attrs.speed + "s"]], text);
+        return addMFM("blur", [
+          {"speed": attrs.speed === effectsData.blur.defaults.speed ? false : attrs.speed + "s"}
+        ], text);
       },
       attrSettingHTMLs: {
       },
@@ -287,13 +306,12 @@ addEventListener("DOMContentLoaded", () => {
       description: "反転(flip)",
       cssList: (attrs) => {
         return [
-          ["transform", `scaleX(${attrs.h ? -1 : 1}) scaleY(${attrs.v ? -1 : 1})`],
+          {"transform": `scaleX(${attrs.h ? -1 : 1}) scaleY(${attrs.v ? -1 : 1})`},
         ];
       },
       MFM: (text, attrs) => {
         return addMFM("flip", [
-          ["h", attrs.h],
-          ["v", attrs.v],
+          {"h": attrs.h, "v": attrs.v},
         ], text);
       },
       attrSettingHTMLs: {
@@ -313,11 +331,13 @@ addEventListener("DOMContentLoaded", () => {
       description: "回転(rotate)",
       cssList: (attrs) => {
         return [
-          ["transform", `rotate(${attrs.deg}deg)`],
+          {"transform": `rotate(${attrs.deg}deg)`},
         ];
       },
       MFM: (text, attrs) => {
-        return addMFM("rotate", [["deg", attrs.deg === effectsData.rotate.defaults.deg ? false : attrs.deg]], text);
+        return addMFM("rotate", [
+          {"deg": attrs.deg === effectsData.rotate.defaults.deg ? false : attrs.deg}
+        ], text);
       },
       attrSettingHTMLs: {
         deg: () => {
@@ -332,7 +352,7 @@ addEventListener("DOMContentLoaded", () => {
       description: "文字サイズ2倍(x2)",
       cssList: (attrs) => {
         return [
-          ["font-size", "200%"],
+          {"font-size": "200%"},
         ];
       },
       MFM: (text, attrs) => {
@@ -347,7 +367,7 @@ addEventListener("DOMContentLoaded", () => {
       description: "文字サイズ3倍(x3)",
       cssList: (attrs) => {
         return [
-          ["font-size", "300%"],
+          {"font-size": "300%"},
         ];
       },
       MFM: (text, attrs) => {
@@ -362,7 +382,7 @@ addEventListener("DOMContentLoaded", () => {
       description: "文字サイズ4倍(x4)",
       cssList: (attrs) => {
         return [
-          ["font-size", "400%"],
+          {"font-size": "400%"},
         ];
       },
       MFM: (text, attrs) => {
@@ -377,13 +397,12 @@ addEventListener("DOMContentLoaded", () => {
       description: "移動(position)",
       cssList: (attrs) => {
         return [
-          ["transform", `translate(${attrs.x}em, ${attrs.y}em)`],
+          {"transform": `translate(${attrs.x}em, ${attrs.y}em)`},
         ];
       },
       MFM: (text, attrs) => {
         return addMFM("position", [
-          ["x", attrs.x === effectsData.position.defaults.x ? false : attrs.x],
-          ["y", attrs.y === effectsData.position.defaults.y ? false : attrs.y],
+          {"x": attrs.x === effectsData.position.defaults.x ? false : attrs.x, "y": attrs.y === effectsData.position.defaults.y ? false : attrs.y},
         ], text);
       },
       attrSettingHTMLs: {
@@ -403,13 +422,12 @@ addEventListener("DOMContentLoaded", () => {
       description: "拡大(scale)",
       cssList: (attrs) => {
         return [
-          ["transform", `scale(${attrs.x}, ${attrs.y})`],
+          {"transform": `scale(${attrs.x}, ${attrs.y})`},
         ];
       },
       MFM: (text, attrs) => {
         return addMFM("scale", [
-          ["x", attrs.x === effectsData.scale.defaults.x ? false : attrs.x],
-          ["y", attrs.y === effectsData.scale.defaults.y ? false : attrs.y],
+          {"x": attrs.x === effectsData.scale.defaults.x ? false : attrs.x, "y": attrs.y === effectsData.scale.defaults.y ? false : attrs.y},
         ], text);
       },
       attrSettingHTMLs: {
@@ -757,35 +775,34 @@ addEventListener("DOMContentLoaded", () => {
           objectElem.appendChild(elem);
         }
       });
-      objectElem = nestAndSetStyle(objectElem, [["color", value.fgDefault ? null : value.fg]]);
-      objectElem = nestAndSetStyle(objectElem, [["backgroundColor", value.bgDefault ? null : value.bg]]);
+      objectElem = nestAndSetStyle(objectElem, [{"color": value.fgDefault ? null : value.fg}]);
+      objectElem = nestAndSetStyle(objectElem, [{"backgroundColor": value.bgDefault ? null : value.bg}]);
       value.effects.forEach((effect) => {
         objectElem = nestAndSetStyle(objectElem, effectsData[effect.type]?.cssList(effect.values));
       });
-      objectElem = nestAndSetStyle(objectElem, [["fontWeight", value.isBold ? "bold" : null]]);
-      objectElem = nestAndSetStyle(objectElem, [["textDecoration", value.isStrike ? "line-through" : null]]);
-      objectElem = nestAndSetStyle(objectElem, [["fontStyle", value.isItalic ? "italic" : null]]);
-      objectElem = nestAndSetStyle(objectElem, [["transform", `scale(${value.sizeX}, ${value.sizeY})`]]);
-      objectElem = nestAndSetStyle(objectElem, [["transform", `translate(${value.x}em, ${value.y}em)`]]);
-      objectElem = nestAndSetStyle(objectElem, [["fontFamily", value.font || null]]);
-      objectElem = nestAndSetStyle(objectElem, [["textAlign", value.isCenter ? "center" : null]]);
+      objectElem = nestAndSetStyle(objectElem, [{"fontWeight": value.isBold ? "bold" : null}]);
+      objectElem = nestAndSetStyle(objectElem, [{"textDecoration": value.isStrike ? "line-through" : null}]);
+      objectElem = nestAndSetStyle(objectElem, [{"fontStyle": value.isItalic ? "italic" : null}]);
+      objectElem = nestAndSetStyle(objectElem, [{"transform": `scale(${value.sizeX}, ${value.sizeY})`}]);
+      objectElem = nestAndSetStyle(objectElem, [{"transform": `translate(${value.x}em, ${value.y}em)`}]);
+      objectElem = nestAndSetStyle(objectElem, [{"fontFamily": value.font || null}]);
+      objectElem = nestAndSetStyle(objectElem, [{"textAlign": value.isCenter ? "center" : null}, {"display": value.isCenter ? "block" : null}]);
       previewElem.appendChild(objectElem);
     });
     twemoji.parse(previewElem);
   }
 
+
+
   function nestAndSetStyle(elem, styles) {
     if (!styles) return elem;
-    let res = document.createElement("span");
-    res.appendChild(elem);
     for (const style of styles) {
-      const [prop, val] = style;
-      let styleElem = document.createElement("span");
-      styleElem.style[prop] = val;
-      styleElem.appendChild(res);
-      res = styleElem;
+      elem = nest(elem);
+      Object.entries(style).forEach((style) => {
+        elem.style[style[0]] = style[1];
+      });
     }
-    return res;
+    return elem;
   }
 
   function nest(elem) {
@@ -800,17 +817,17 @@ addEventListener("DOMContentLoaded", () => {
     const resultElem = document.getElementById("result");
     let allMFM = Object.values(objects).map((value) => {
       let thisObjectMFM = value.text;
-      if (!value.fgDefault) thisObjectMFM = addMFM("fg", [["color", value.fg.slice(1, undefined)]], thisObjectMFM);
-      if (!value.bgDefault) thisObjectMFM = addMFM("bg", [["color", value.bg.slice(1, undefined)]], thisObjectMFM);
+      if (!value.fgDefault) thisObjectMFM = addMFM("fg", [{"color": value.fg.slice(1, undefined)}], thisObjectMFM);
+      if (!value.bgDefault) thisObjectMFM = addMFM("bg", [{"color": value.bg.slice(1, undefined)}], thisObjectMFM);
       value.effects.forEach((effect) => {
         thisObjectMFM = effectsData[effect.type]?.MFM(thisObjectMFM, effect.values) || thisObjectMFM;
       });
       if (value.isBold) thisObjectMFM = addNest("**", thisObjectMFM);
       if (value.isStrike) thisObjectMFM = addNest("~~", thisObjectMFM);
       if (value.isItalic) thisObjectMFM = addNestLikeHTML("i", thisObjectMFM);
-      if (value.sizeX !== 1 || value.sizeY !== 1) thisObjectMFM = addMFM("scale", [["x", value.sizeX == 1 ? false : value.sizeX], ["y", value.sizeY == 1 ? false : value.sizeY]], thisObjectMFM);
-      if (value.x !== 0 || value.y !== 0) thisObjectMFM = addMFM("position", [["x", value.x == 0 ? false : value.x], ["y", value.y == 0 ? false : value.y]], thisObjectMFM);
-      if (value.font != "default") thisObjectMFM = addMFM("font", [[value.font, true]], thisObjectMFM);
+      if (value.sizeX !== 1 || value.sizeY !== 1) thisObjectMFM = addMFM("scale", [{"x": value.sizeX == 1 ? false : value.sizeX}, {"y": value.sizeY == 1 ? false : value.sizeY}], thisObjectMFM);
+      if (value.x !== 0 || value.y !== 0) thisObjectMFM = addMFM("position", [{"x": value.x == 0 ? false : value.x}, {"y": value.y == 0 ? false : value.y}], thisObjectMFM);
+      if (value.font != "default") thisObjectMFM = addMFM("font", [{[value.font]: true}], thisObjectMFM);
       if (value.isCenter) thisObjectMFM = addNestLikeHTML("center", thisObjectMFM);
       return thisObjectMFM;
     }).join("\n");
@@ -818,25 +835,15 @@ addEventListener("DOMContentLoaded", () => {
   }
 
   function addMFM(name, properties, innerText) {
-    // 値がfalse: 完全に省略
-    // 値がtrue: プロパティ名のみ
-    if (name !== undefined) {
-      let res = `$[${name}`;
-      let firstAttrPrinted = false;
-      properties.forEach((property) => {
-        if (property[1] !== false) {
-          res += (firstAttrPrinted ? "," : ".") + `${property[0]}`;
-          if (property[1] !== true) {
-            res += `=${property[1]}`;
-          }
-          firstAttrPrinted = true;
-        }
-      });
-      res += ` ${innerText}]`;
-      return res;
-    } else {
+    if (!name) {
       return innerText;
     }
+    const attrs = properties
+      .flatMap(Object.entries)
+      .filter(([_, value]) => value !== false)
+      .map(([key, value]) => (value === true ? key : `${key}=${value}`))
+      .join(",");
+    return `$[${name}${attrs === "" ? "" : "."}${attrs} ${innerText}]`;
   }
 
   function addNest(text, innerText) {
