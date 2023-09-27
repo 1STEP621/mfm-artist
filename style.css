@@ -129,6 +129,16 @@ input[type="radio"] {
   cursor: pointer;
 }
 
+input[type="text"].pickr {
+  border: 0;
+  width: 200px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: #c7d1d8;
+  color: var(--black);
+}
+
 label {
   user-select: none;
   cursor: pointer;
@@ -147,15 +157,6 @@ select {
   border-radius: 10px;
   padding: 5px 10px;
   width: 200px;
-}
-
-input[type="color"] {
-  border: 0;
-  background-color: transparent;
-  padding: 0;
-  vertical-align: -10px;
-  width: 200px;
-  height: 37px;
 }
 
 .object-up {

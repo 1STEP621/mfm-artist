@@ -202,25 +202,25 @@ addEventListener("DOMContentLoaded", () => {
         speed: 1,
       }
     },
-    parallel : {
+    parallel: {
       description: "平行移動(spin + position)",
       cssList: (attrs) => {
         let res = [];
-        res = res.concat(effectsData.spin.cssList({speed: attrs.speed, behavior: "reverse", direction: "z"}));
-        res = res.concat(effectsData.position.cssList({x: attrs.distance, y: 0}));
-        res = res.concat(effectsData.spin.cssList({speed: attrs.speed / 2, behavior: "normal", direction: "z"}));
-        res = res.concat(effectsData.position.cssList({x: attrs.distance, y: 0}));
-        res = res.concat(effectsData.spin.cssList({speed: attrs.speed, behavior: "reverse", direction: "z"}));
+        res = res.concat(effectsData.spin.cssList({ speed: attrs.speed, behavior: "reverse", direction: "z" }));
+        res = res.concat(effectsData.position.cssList({ x: attrs.distance, y: 0 }));
+        res = res.concat(effectsData.spin.cssList({ speed: attrs.speed / 2, behavior: "normal", direction: "z" }));
+        res = res.concat(effectsData.position.cssList({ x: attrs.distance, y: 0 }));
+        res = res.concat(effectsData.spin.cssList({ speed: attrs.speed, behavior: "reverse", direction: "z" }));
         console.log(res);
         return res;
       },
       MFM: (text, attrs) => {
         let res = text;
-        res = effectsData.spin.MFM(res, {speed: attrs.speed, behavior: "reverse", direction: "z"});
-        res = effectsData.position.MFM(res, {x: attrs.distance, y: 0});
-        res = effectsData.spin.MFM(res, {speed: attrs.speed / 2, behavior: "normal", direction: "z"});
-        res = effectsData.position.MFM(res, {x: attrs.distance, y: 0});
-        res = effectsData.spin.MFM(res, {speed: attrs.speed, behavior: "reverse", direction: "z"});
+        res = effectsData.spin.MFM(res, { speed: attrs.speed, behavior: "reverse", direction: "z" });
+        res = effectsData.position.MFM(res, { x: attrs.distance, y: 0 });
+        res = effectsData.spin.MFM(res, { speed: attrs.speed / 2, behavior: "normal", direction: "z" });
+        res = effectsData.position.MFM(res, { x: attrs.distance, y: 0 });
+        res = effectsData.spin.MFM(res, { speed: attrs.speed, behavior: "reverse", direction: "z" });
         return res;
       },
       attrSettingHTMLs: {
@@ -240,23 +240,23 @@ addEventListener("DOMContentLoaded", () => {
       description: "点滅(bounce + flip + position)",
       cssList: (attrs) => {
         let res = [];
-        res = res.concat(effectsData.position.cssList({x: 0, y: 999999}));
-        res = res.concat(effectsData.bounce.cssList({speed: attrs.speed}));
-        res = res.concat(effectsData.position.cssList({x: 0, y: -999999}));
-        res = res.concat(effectsData.flip.cssList({h: false, v: true}));
-        res = res.concat(effectsData.bounce.cssList({speed: attrs.speed}));
-        res = res.concat(effectsData.flip.cssList({h: false, v: true}));
+        res = res.concat(effectsData.position.cssList({ x: 0, y: 999999 }));
+        res = res.concat(effectsData.bounce.cssList({ speed: attrs.speed }));
+        res = res.concat(effectsData.position.cssList({ x: 0, y: -999999 }));
+        res = res.concat(effectsData.flip.cssList({ h: false, v: true }));
+        res = res.concat(effectsData.bounce.cssList({ speed: attrs.speed }));
+        res = res.concat(effectsData.flip.cssList({ h: false, v: true }));
         console.log(res);
         return res;
       },
       MFM: (text, attrs) => {
         let res = text;
-        res = effectsData.position.MFM(res, {x: 0, y: 999999});
-        res = effectsData.bounce.MFM(res, {speed: attrs.speed});
-        res = effectsData.position.MFM(res, {x: 0, y: -999999});
-        res = effectsData.flip.MFM(res, {h: false, v: true});
-        res = effectsData.bounce.MFM(res, {speed: attrs.speed});
-        res = effectsData.flip.MFM(res, {h: false, v: true});
+        res = effectsData.position.MFM(res, { x: 0, y: 999999 });
+        res = effectsData.bounce.MFM(res, { speed: attrs.speed });
+        res = effectsData.position.MFM(res, { x: 0, y: -999999 });
+        res = effectsData.flip.MFM(res, { h: false, v: true });
+        res = effectsData.bounce.MFM(res, { speed: attrs.speed });
+        res = effectsData.flip.MFM(res, { h: false, v: true });
         return res;
       },
       attrSettingHTMLs: {
@@ -499,11 +499,11 @@ addEventListener("DOMContentLoaded", () => {
               </div>
             </div>
             <div class="object-setting-group">
-              <div>文字色:<input type="color" value="#c7d1d8" class="setting-fg" data-linkattr="fg"></div>
+              <div>文字色:<input type="text" class="setting-fg pickr" data-linkattr="fg" value="#c7d1d8"></div>
               <label><input type="checkbox" class="setting-fg-default" data-linkattr="fgDefault" checked>デフォルトを使用する</label>
             </div>
             <div class="object-setting-group">
-              <div>背景色:<input type="color" value="#2d2d2d" class="setting-bg" data-linkattr="bg"></div>
+              <div>背景色:<input type="text" class="setting-bg pickr" data-linkattr="bg" value="#c7d1d8"></div>
               <label><input type="checkbox" class="setting-bg-default" data-linkattr="bgDefault" checked>デフォルトを使用する</label>
             </div>
             <div class="object-effects-wrapper">
@@ -517,6 +517,48 @@ addEventListener("DOMContentLoaded", () => {
       const objectUpElem = document.querySelectorAll(".object-up");
       const objectDownElem = document.querySelectorAll(".object-down");
       const addEffectElem = document.querySelectorAll(".add-effect");
+      const pickrElems = document.querySelectorAll(".pickr");
+      pickrElems.forEach((pickrElem) => {
+        const pickrObj = Pickr.create({
+          el: pickrElem,
+          theme: "nano",
+          useAsButton: true,
+          components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+            interaction: {
+              hex: true,
+              hsva: true,
+              input: true,
+              clear: false,
+              save: false,
+            },
+          },
+        });
+        pickrObj.on("change", (color) => {
+          const HEXA = color.toHEXA();
+          const HSVA = color.toHSVA();
+          
+          if (!HEXA[3]) {
+            pickrElem.value = HEXA.toString().toLowerCase();
+          } else {
+            let color = "#";
+            for (let i = 0; i < 4; i++) color += HEXA[i].slice(0, 1);
+            pickrElem.value = color;
+          }
+          console.log(HEXA);
+          pickrElem.style.backgroundColor = pickrElem.value;
+
+          if (HSVA[2] < 70 * HSVA[3]) {
+            pickrElem.style.color = "var(--white)";
+          } else {
+            pickrElem.style.color = "var(--black)";
+          }
+          
+          pickrElem.dispatchEvent(new Event("input"));
+        });
+      });
 
       objects[id] = {
         text: "",
@@ -531,7 +573,7 @@ addEventListener("DOMContentLoaded", () => {
         font: "default",
         fg: "#c7d1d8",
         fgDefault: true,
-        bg: "#2d2d2d",
+        bg: "#c7d1d8",
         bgDefault: true,
         effects: [],
       };
@@ -755,25 +797,23 @@ addEventListener("DOMContentLoaded", () => {
   // -------------------------------MFM生成--------------------------------
   function generateMFM() {
     const resultElem = document.getElementById("result");
-    resultElem.innerText = "";
-    let allMFM = "";
-    Object.values(objects).forEach((value) => {
+    let allMFM = Object.values(objects).map((value) => {
       let thisObjectMFM = value.text;
-      if (!value.fgDefault) thisObjectMFM = addMFM("fg", [["color", value.fg.substring(1, 7)]], thisObjectMFM);
-      if (!value.bgDefault) thisObjectMFM = addMFM("bg", [["color", value.bg.substring(1, 7)]], thisObjectMFM);
+      if (!value.fgDefault) thisObjectMFM = addMFM("fg", [["color", value.fg.slice(1, undefined)]], thisObjectMFM);
+      if (!value.bgDefault) thisObjectMFM = addMFM("bg", [["color", value.bg.slice(1, undefined)]], thisObjectMFM);
       value.effects.forEach((effect) => {
         thisObjectMFM = effectsData[effect.type]?.MFM(thisObjectMFM, effect.values) || thisObjectMFM;
       });
       if (value.isBold) thisObjectMFM = addNest("**", thisObjectMFM);
       if (value.isStrike) thisObjectMFM = addNest("~~", thisObjectMFM);
       if (value.isItalic) thisObjectMFM = addNestLikeHTML("i", thisObjectMFM);
-      if (value.sizeX !== 1 || value.sizeY !== 1) thisObjectMFM = addMFM("scale", [["x", value.sizeX == 1 ? false : value.sizeX], ["y", value.sizeY == 1 ? false: value.sizeY]], thisObjectMFM);
-      if (value.x !== 0 || value.y !== 0) thisObjectMFM = addMFM("position", [["x", value.x == 0 ? false: value.x], ["y", value.y == 0 ? false : value.y]], thisObjectMFM);
+      if (value.sizeX !== 1 || value.sizeY !== 1) thisObjectMFM = addMFM("scale", [["x", value.sizeX == 1 ? false : value.sizeX], ["y", value.sizeY == 1 ? false : value.sizeY]], thisObjectMFM);
+      if (value.x !== 0 || value.y !== 0) thisObjectMFM = addMFM("position", [["x", value.x == 0 ? false : value.x], ["y", value.y == 0 ? false : value.y]], thisObjectMFM);
       if (value.font != "default") thisObjectMFM = addMFM("font", [[value.font, true]], thisObjectMFM);
       if (value.isCenter) thisObjectMFM = addNestLikeHTML("center", thisObjectMFM);
-      allMFM += thisObjectMFM + "\n";
-      resultElem.innerText = allMFM;
-    });
+      return thisObjectMFM;
+    }).join("\n");
+    resultElem.innerText = allMFM;
   }
 
   function addMFM(name, properties, innerText) {
