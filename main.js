@@ -523,6 +523,7 @@ addEventListener("DOMContentLoaded", () => {
           el: pickrElem,
           theme: "nano",
           useAsButton: true,
+          default: pickrElem.value,
           components: {
             preview: true,
             opacity: true,
