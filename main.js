@@ -11,7 +11,7 @@ addEventListener("DOMContentLoaded", () => {
       description: "ばーん(tada)",
       cssList: (attrs) => {
         return [
-          {"font-size": "150%", "animation": `tada ${attrs.speed}s linear infinite`},
+          {"fontSize": "150%", "animation": `tada ${attrs.speed}s linear infinite`},
         ];
       },
       MFM: (text, attrs) => {
@@ -352,7 +352,7 @@ addEventListener("DOMContentLoaded", () => {
       description: "文字サイズ2倍(x2)",
       cssList: (attrs) => {
         return [
-          {"font-size": "200%"},
+          {"fontSize": "200%"},
         ];
       },
       MFM: (text, attrs) => {
@@ -367,7 +367,7 @@ addEventListener("DOMContentLoaded", () => {
       description: "文字サイズ3倍(x3)",
       cssList: (attrs) => {
         return [
-          {"font-size": "300%"},
+          {"fontSize": "300%"},
         ];
       },
       MFM: (text, attrs) => {
@@ -382,7 +382,7 @@ addEventListener("DOMContentLoaded", () => {
       description: "文字サイズ4倍(x4)",
       cssList: (attrs) => {
         return [
-          {"font-size": "400%"},
+          {"fontSize": "400%"},
         ];
       },
       MFM: (text, attrs) => {
