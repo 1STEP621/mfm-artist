@@ -543,6 +543,7 @@ addEventListener("DOMContentLoaded", () => {
       const objectDownElem = document.querySelectorAll(".object-down");
       const addEffectElem = document.querySelectorAll(".add-effect");
       const pickrElems = document.querySelectorAll(".pickr");
+      dispatchEventAll(pickrElems, "destroy");
       pickrElems.forEach((pickrElem) => {
         const pickrObj = Pickr.create({
           el: pickrElem,
@@ -570,6 +571,9 @@ addEventListener("DOMContentLoaded", () => {
           pickrElem.style.color = HSVA[2] < 70 * HSVA[3] ? "var(--white)" : "var(--black)";
           pickrElem.dispatchEvent(new Event("input"));
         });
+        pickrElem.addEventListener("destroy", () => {
+          pickrObj.destroyAndRemove();
+        });
       });
 
       objects[id] = {
@@ -591,8 +595,10 @@ addEventListener("DOMContentLoaded", () => {
       };
 
       onEventAll(objectDeleteElem, "click", (e) => {
-        e.target.closest(".object").remove();
-        delete objects[e.target.closest(".object").dataset.id];
+        const thisObjectElem = e.target.closest(".object");
+        dispatchEventAll(thisObjectElem.querySelectorAll(".pickr"), "destroy");
+        delete objects[thisObjectElem.dataset.id];
+        thisObjectElem.remove();
         render(objects);
         generateMFM(objects);
       });
