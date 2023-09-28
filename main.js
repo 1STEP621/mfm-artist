@@ -452,6 +452,7 @@ addEventListener("DOMContentLoaded", () => {
   function scene1() {
     goElem.addEventListener("click", async () => {
       messageElem.innerText = "読み込み中...";
+      goElem.inert = true;
       try {
         domain = domainElem.value;
         const emojisRequest = await fetch(`https://${domain}/api/emojis`);
@@ -467,6 +468,7 @@ addEventListener("DOMContentLoaded", () => {
         }
       } catch {
         messageElem.innerText = "読み込みに失敗しました。";
+        goElem.inert = false;
       }
     });
   }

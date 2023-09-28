@@ -80,6 +80,13 @@ textarea {
   margin-bottom: 20px;
 }
 
+#domain {
+  width: 100%;
+  padding: 10px;
+  border: solid 2px var(--primary-deep);
+  border-radius: 10px;
+}
+
 h2 {
   margin-bottom: 20px;
 }
