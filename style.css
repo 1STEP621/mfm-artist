@@ -63,17 +63,6 @@
   filter: none !important;
 }
 
-textarea {
-  width: 100%;
-  resize: none;
-  overflow-y: auto;
-  padding: 15px;
-  font-family: "Noto Sans JP";
-  border: 0;
-  outline: solid 1px var(--primary-deep);
-  border-radius: 10px;
-}
-
 #domain-input-wrapper {
   display: flex;
   gap: 10px;

@@ -471,6 +471,12 @@ addEventListener("DOMContentLoaded", () => {
         goElem.inert = false;
       }
     });
+    domainElem.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        goElem.click();
+      }
+    });
   }
 
   // -------------------------------シーン2--------------------------------
