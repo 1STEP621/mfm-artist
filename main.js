@@ -364,7 +364,7 @@ addEventListener("DOMContentLoaded", () => {
       description: "文字サイズ3倍(x3)",
       cssList: (attrs) => {
         return [
-          { "fontSize": "300%" },
+          { "fontSize": "400%" },
         ];
       },
       MFM: (text, attrs) => {
@@ -379,7 +379,7 @@ addEventListener("DOMContentLoaded", () => {
       description: "文字サイズ4倍(x4)",
       cssList: (attrs) => {
         return [
-          { "fontSize": "400%" },
+          { "fontSize": "600%" },
         ];
       },
       MFM: (text, attrs) => {
