@@ -197,6 +197,7 @@ select {
 }
 
 #result {
+  position: relative;
   margin-bottom: 20px;
   min-height: 100px;
 }
@@ -292,6 +293,14 @@ body {
 
 :invalid {
   background-color: #c53c1244 !important;
+}
+
+.copy-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 7px 13px;
+  background-color: var(--gray);
 }
 
 /* https://github.com/misskey-dev/misskey/blob/develop/packages/frontend/src/style.scss より改変 */

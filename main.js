@@ -831,6 +831,20 @@ addEventListener("DOMContentLoaded", () => {
       return thisObjectMFM;
     }).join("\n");
     resultElem.innerText = allMFM;
+
+    const copyBtnElem = document.createElement("a");
+    copyBtnElem.classList.add("button");
+    copyBtnElem.classList.add("block-link");
+    copyBtnElem.classList.add("copy-button");
+    copyBtnElem.innerText = "コピー";
+    copyBtnElem.addEventListener("click", () => {
+      navigator.clipboard.writeText(allMFM);
+      copyBtnElem.innerText = "コピーしました";
+      setTimeout(() => {
+        copyBtnElem.innerText = "コピー";
+      }, 1000);
+    });
+    resultElem.appendChild(copyBtnElem);
   }
 
   function addMFM(name, properties, innerText) {
