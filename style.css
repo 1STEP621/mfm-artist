@@ -20,6 +20,7 @@
   resize: vertical;
   overflow: auto;
   scrollbar-gutter: stable;
+  height: 70vh;
 }
 
 #preview {
