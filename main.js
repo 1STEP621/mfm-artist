@@ -284,18 +284,28 @@ addEventListener("DOMContentLoaded", () => {
     blur: {
       description: "ぼわぼわ(blur)",
       cssList: (attrs) => {
-        return [
-          { "filter": "blur(6px)" },
-        ];
+        let res = [];
+        res = res.concat(effectsData.scale.cssList({ x: 1 / attrs.strength, y: 1 / attrs.strength }));
+        res = res.concat([{ "filter": "blur(6px)" }]);
+        res = res.concat(effectsData.scale.cssList({ x: attrs.strength, y: attrs.strength }));
+        return res;
       },
       MFM: (text, attrs) => {
-        return addMFM("blur", {
+        let res = text;
+        if (attrs.strength !== effectsData.blur.defaults.strength) res = effectsData.scale.MFM(res, { x: Math.round(1 / attrs.strength * 10) / 10, y: Math.round(1 / attrs.strength * 10) / 10 });
+        res = addMFM("blur", {
           "speed": attrs.speed === effectsData.blur.defaults.speed ? false : attrs.speed + "s"
-        }, text);
+        }, res);
+        if (attrs.strength !== effectsData.blur.defaults.strength) res = effectsData.scale.MFM(res, { x: attrs.strength, y: attrs.strength });
+        return res;
       },
       attrSettingHTMLs: {
+        strength: () => {
+          return `<div>強さ:<input type="number" class="strength" placeholder="強さ" min="0.1" value="${effectsData.blur.defaults.strength}" step="0.1"></div>`;
+        },
       },
       defaults: {
+        strength: 1,
       }
     },
     flip: {
