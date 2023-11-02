@@ -1,11 +1,16 @@
 <script setup>
-import { ref, computed } from "vue";
-// import { useMagicKeys } from "@vueuse/core";
-import { IconTrash, IconSettings, IconArrowBigUp, IconArrowBigDown, IconTextPlus, IconWand } from '@tabler/icons-vue';
+import { ref, computed, watch } from "vue";
+import { /* useMagicKeys, */ computedAsync, useStorage } from "@vueuse/core";
+import { IconTrash, IconSettings, IconArrowBigUp, IconArrowBigDown, IconTextPlus, IconWand, IconLoader } from '@tabler/icons-vue';
+import unknown from "./assets/unknown.png";
 
 const vFocus = {
   mounted: (el) => el.focus()
 }
+
+const objects = ref([]);
+const serverDomain = ref(useStorage("serverDomain", "misskey.io"));
+const serverModalOpened = ref(false);
 
 const effectsInfo = {
   position: {
@@ -94,7 +99,6 @@ const effectsInfo = {
   },
 }
 
-const objects = ref([]);
 
 function addObject() {
   objects.value.push({
@@ -113,19 +117,19 @@ function addObject() {
         swappable: false,
       },
       {
-        type: "scale",
+        type: "rotate",
         attrs: {
-          x: 1,
-          y: 1,
+          deg: 0,
         },
         deletable: false,
         changable: false,
         swappable: false,
       },
       {
-        type: "rotate",
+        type: "scale",
         attrs: {
-          deg: 0,
+          x: 1,
+          y: 1,
         },
         deletable: false,
         changable: false,
@@ -137,7 +141,7 @@ function addObject() {
         deletable: true,
         changable: true,
         swappable: true,
-      }
+      },
     ],
   });
 }
@@ -193,10 +197,41 @@ function effectOrderDown(target) {
   objects.value.splice(index + 1, 0, target);
 }
 
+watch(serverDomain, () => {
+  useStorage("serverDomain", serverDomain.value);
+});
+
+const emojiLoading = ref(false);
+const serverEmojis = computedAsync(async () => {
+  emojiLoading.value = true;
+  // 名前解決に時間がかかるため、ドメインにドットを含まない場合ただちに終了する
+  if (!serverDomain.value.match(/\../)) {
+    emojiLoading.value = false;
+    return null;
+  }
+  try {
+    const request = await fetch(`https://${serverDomain.value}/api/emojis`);
+    if (!request.ok || request.status !== 200) throw new Error("Request failed");
+    const result = await request.json();
+    emojiLoading.value = false;
+    return result.emojis;
+  } catch {
+    emojiLoading.value = false;
+    return null;
+  }
+});
+
 const preview = computed(() => {
   let result = "";
   for (const object of objects.value) {
-    result += object.text + "<br>";
+    const parts = object.text.split(":");
+    result += parts.reduce((acm, value, index) => {
+      if (index % 2 == 0) {
+        return acm + value;
+      } else {
+        return acm + `<img src="${serverEmojis.value?.find((emoji) => emoji.name === value)?.url ?? unknown}" class="emoji" />`;
+      }
+    }, "");
   }
   return result;
 });
@@ -206,58 +241,76 @@ addObject();
 
 <template>
   <main>
-    <div id="objects">
-      <div class="object inner-round-v" v-for="object in objects" :key="object.id">
-        <div class="object-normal-controls inner-round-h">
-          <a class="block-link button" @click="objectOrderUp(object)">
-            <IconArrowBigUp size="19" />
-          </a>
-          <a class="block-link button" @click="objectOrderDown(object)">
-            <IconArrowBigDown size="19" />
-          </a>
-          <input type="text" class="object-text" v-model="object.text" v-focus />
-          <a class="block-link button" @click="object.displayEffects = !object.displayEffects">
-            <IconSettings size="19" />
-          </a>
-          <a class="block-link button" style="background-color: #c53b12"
-            @click="deleteObject(object)">
-            <IconTrash size="19" />
-          </a>
-        </div>
-        <div class="object-effect-controls" v-show="object.displayEffects">
-          <div class="object-effect" v-for="(effect, index) in object.effects" :key="index">
-            <div class="object-effect-normal-controls inner-round-h">
-              <a class="block-link button" v-if="effect.swappable" @click="effectOrderUp(object, effect)">
-                <IconArrowBigUp size="19" />
-              </a>
-              <a class="block-link button" v-if="effect.swappable"
-                @click="effectOrderDown(object, effect)">
-                <IconArrowBigDown size="19" />
-              </a>
-              <select class="object-effect-text" v-model="effect.type" :inert="!effect.changable">
-                <option v-for="(info, type) in effectsInfo" :key="type" :value="type">{{ info.description }}</option>
-              </select>
-              <a class="block-link button" style="background-color: #c53b12" v-if="effect.deletable"
-                @click="deleteEffect(object, effect)">
-                <IconTrash size="19" />
-              </a>
-            </div>
-            <div class="object-effect-attr-controls" v-if="Object.keys(effectsInfo[effect.type].attrs).length">
-              <div v-for="(attr, index) in effectsInfo[effect.type].attrs" :key="index">
-                <label>{{ attr.description }}: <input :type="attr.type" v-model="effect.attrs[index]" /></label>
+    <div id="sub">
+      <div id="server-info" @click="serverModalOpened = true">
+        サーバー: <span :class="{ invalid: serverEmojis === null }">{{ serverDomain }}</span>
+      </div>
+    </div>
+    <div id="main">
+      <div id="objects">
+        <div class="object inner-round-v" v-for="object in objects" :key="object.id">
+          <div class="object-normal-controls inner-round-h">
+            <a class="block-link button" @click="objectOrderUp(object)">
+              <IconArrowBigUp size="19" />
+            </a>
+            <a class="block-link button" @click="objectOrderDown(object)">
+              <IconArrowBigDown size="19" />
+            </a>
+            <input type="text" class="object-text" v-model="object.text" v-focus />
+            <a class="block-link button" @click="object.displayEffects = !object.displayEffects">
+              <IconSettings size="19" />
+            </a>
+            <a class="block-link button" style="background-color: #c53b12" @click="deleteObject(object)">
+              <IconTrash size="19" />
+            </a>
+          </div>
+          <div class="object-effect-controls" v-show="object.displayEffects">
+            <div class="object-effect" v-for="(effect, index) in object.effects" :key="index">
+              <div class="object-effect-normal-controls inner-round-h">
+                <a class="block-link button" v-if="effect.swappable" @click="effectOrderUp(object, effect)">
+                  <IconArrowBigUp size="19" />
+                </a>
+                <a class="block-link button" v-if="effect.swappable" @click="effectOrderDown(object, effect)">
+                  <IconArrowBigDown size="19" />
+                </a>
+                <select class="object-effect-text" v-model="effect.type" :inert="!effect.changable">
+                  <option v-for="(info, type) in effectsInfo" :key="type" :value="type">{{ info.description }}</option>
+                </select>
+                <a class="block-link button" style="background-color: #c53b12" v-if="effect.deletable"
+                  @click="deleteEffect(object, effect)">
+                  <IconTrash size="19" />
+                </a>
+              </div>
+              <div class="object-effect-attr-controls" v-if="Object.keys(effectsInfo[effect.type].attrs).length">
+                <div v-for="(attr, index) in effectsInfo[effect.type].attrs" :key="index">
+                  <label>{{ attr.description }}: <input :type="attr.type" v-model="effect.attrs[index]" /></label>
+                </div>
               </div>
             </div>
+            <a class="block-link button" @click="addEffect(object)">
+              <IconWand size="19" style="margin-right: 10px;" />エフェクトを追加
+            </a>
           </div>
-          <a class="block-link button" @click="addEffect(object)"><IconWand size="19" style="margin-right: 10px;" />エフェクトを追加</a>
         </div>
+        <a class="block-link button" @click="addObject">
+          <IconTextPlus size="19" style="margin-right: 10px;" />オブジェクトを追加
+        </a>
       </div>
-      <a class="block-link button" @click="addObject"><IconTextPlus size="19" style="margin-right: 10px;" />オブジェクトを追加</a>
-    </div>
-    <div id="left-pane">
-      <div id="preview" v-html="preview"></div>
-      <a class="block-link button">MFMをみる</a>
+      <div id="left-pane">
+        <div id="preview" v-html="preview"></div>
+        <a class="block-link button">MFMをみる</a>
+      </div>
     </div>
   </main>
+
+  <Teleport to="main">
+    <div id="server-modal" v-if="serverModalOpened" @click.self="serverModalOpened = false">
+      <form id="server-input" @submit.prevent="serverModalOpened = false">
+        <label>サーバー: <input type="text" :class="{ invalid: serverEmojis === null }" v-model="serverDomain" v-focus /></label>
+        <IconLoader size="30" class="spin" :class="{ hidden: !emojiLoading }" />
+      </form>
+    </div>
+  </Teleport>
 </template>
 
 <style>
@@ -269,23 +322,71 @@ addObject();
   margin: 0;
 }
 
+#server-info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+#server-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  backdrop-filter: blur(10px);
+}
+
 main {
   display: flex;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
+  flex-direction: column;
+  height: 100dvh;
   gap: 10px;
   padding: 10px;
-  height: 100vh;
+}
+
+#sub {
+  display: flex;
+  justify-content: center;
+  background-color: #dfdfdf;
+  width: 100%;
+  max-width: 1200px;
+  height: 50px;
+  margin: auto;
+  border-radius: 10px;
+}
+
+#server-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 50px;
+  filter: drop-shadow(0px 0px 10px var(--primary-deep));
+  background-color: var(--white);
+  border-radius: 10px;
+}
+
+#main {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex: 1;
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 600px) {
-  main {
+  #main {
     flex-direction: column;
   }
 }
 
-main>* {
+#main>* {
   border-radius: 10px;
 }
 
@@ -335,7 +436,7 @@ main>* {
   gap: 10px;
   padding: 0 10px 10px 10px;
   background-color: var(--white);
-  height: 400px;
+  height: 300px;
   resize: vertical;
   overflow-y: auto;
   scrollbar-gutter: stable;
@@ -385,15 +486,43 @@ main>* {
   border-radius: 10px;
   background-color: #2d2d2d;
   color: rgb(199, 209, 216);
-  font-size: .95em;
-  line-height: 1.35;
-  font-family: Hiragino Maru Gothic Pro,BIZ UDGothic,Roboto,HelveticaNeue,Arial,sans-serif;
+  font-size: 14.7px;
+  line-height: 19.845px;
+  font-family: Hiragino Maru Gothic Pro, BIZ UDGothic, Roboto, HelveticaNeue, Arial, sans-serif;
   padding: 10px;
   overflow: auto;
   scrollbar-gutter: stable;
+  word-break: break-word;
+  text-wrap: wrap;
+}
+
+.emoji {
+  height: 29.3906px;
 }
 
 /***********/
+.hidden {
+  opacity: 0;
+}
+
+.invalid {
+  color: #c53b12;
+}
+
+.spin {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
 .button,
 select {
   padding: 5px 10px;
@@ -460,21 +589,5 @@ label {
 
 .inner-round-v>*:only-child {
   border-radius: 10px;
-}
-
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: rgb(0 0 0 / 30%);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: rgb(0 0 0 / 45%);
-}
-
-::-webkit-scrollbar-thumb:active {
-  background-color: rgb(0 0 0 / 60%);
 }
 </style>
