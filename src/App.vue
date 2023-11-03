@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch } from "vue";
-import { /* useMagicKeys, */ computedAsync, useStorage } from "@vueuse/core";
+import { /* useMagicKeys, */ useStorage, useFetch } from "@vueuse/core";
 import { IconTrash, IconSettings, IconArrowBigUp, IconArrowBigDown, IconTextPlus, IconWand, IconLoader } from '@tabler/icons-vue';
 import unknown from "./assets/unknown.png";
 
@@ -17,85 +17,145 @@ const effectsInfo = {
     description: "位置移動(position)",
     attrs: {
       x: {
-        type: "number",
         description: "X座標",
-        default: 0,
+        props: {
+          type: "number",
+          step: "any",
+        },
       },
       y: {
-        type: "number",
         description: "Y座標",
-        default: 0,
+        props: {
+          type: "number",
+          step: "any",
+        },
       },
+    },
+    css: (attrs) => {
+      return {
+        display: "inline-block",
+        position: "relative",
+        left: `${attrs.x}em`,
+        top: `${attrs.y}em`,
+      };
     },
   },
   scale: {
     description: "拡大縮小(scale)",
     attrs: {
       x: {
-        type: "number",
         description: "X倍率",
-        default: 1,
+        props: {
+          type: "number",
+          step: "any",
+        },
       },
       y: {
-        type: "number",
         description: "Y倍率",
-        default: 1,
+        props: {
+          type: "number",
+          step: "any",
+        },
       },
+    },
+    css: (attrs) => {
+      return {
+        display: "inline-block",
+        transform: `scale(${attrs.x}, ${attrs.y})`,
+      };
     },
   },
   rotate: {
     description: "回転(rotate)",
     attrs: {
       deg: {
-        type: "number",
         description: "角度",
-        default: 0,
+        props: {
+          type: "number",
+          step: "any",
+        },
       },
+    },
+    css: (attrs) => {
+      return {
+        display: "inline-block",
+        transform: `rotate(${attrs.deg}deg)`,
+      };
     },
   },
   fg: {
     description: "文字色(fg)",
     attrs: {
       color: {
-        type: "color",
         description: "色",
-        default: "#000000",
+        props: {
+          type: "color",
+        },
       },
+    },
+    css: (attrs) => {
+      return {
+        color: attrs.color,
+      };
     },
   },
   bg: {
     description: "背景色(bg)",
     attrs: {
       color: {
-        type: "color",
         description: "色",
-        default: "#ffffff",
+        props: {
+          type: "color",
+        },
       },
+    },
+    css: (attrs) => {
+      return {
+        display: "inline-block",
+        backgroundColor: attrs.color,
+      };
     },
   },
   decoration: {
     description: "装飾(** / * / ~~)",
     attrs: {
       bold: {
-        type: "checkbox",
         description: "太字",
-        default: false,
+        props: {
+          type: "checkbox",
+        },
       },
       italic: {
-        type: "checkbox",
         description: "斜体",
-        default: false,
+        props: {
+          type: "checkbox",
+        },
       },
       strike: {
-        type: "checkbox",
         description: "打ち消し線",
-        default: false,
+        props: {
+          type: "checkbox",
+        },
       },
+    },
+    css: (attrs) => {
+      return {
+        display: "inline-block",
+        fontWeight: attrs.bold ? "bold" : "normal",
+        fontStyle: attrs.italic ? "italic" : "normal",
+        textDecoration: attrs.strike ? "line-through" : "none",
+      };
     },
   },
   center: {
     description: "中央揃え(center)",
     attrs: {},
+    css: () => {
+      return {
+        display: "block",
+        textAlign: "center",
+      };
+    },
   },
 }
 
@@ -107,10 +167,10 @@ function addObject() {
     text: "",
     effects: [
       {
-        type: "position",
+        type: "scale",
         attrs: {
-          x: 0,
-          y: 0,
+          x: 1,
+          y: 1,
         },
         deletable: false,
         changable: false,
@@ -126,10 +186,10 @@ function addObject() {
         swappable: false,
       },
       {
-        type: "scale",
+        type: "position",
         attrs: {
-          x: 1,
-          y: 1,
+          x: 0,
+          y: 0,
         },
         deletable: false,
         changable: false,
@@ -201,39 +261,53 @@ watch(serverDomain, () => {
   useStorage("serverDomain", serverDomain.value);
 });
 
-const emojiLoading = ref(false);
-const serverEmojis = computedAsync(async () => {
-  emojiLoading.value = true;
-  // 名前解決に時間がかかるため、ドメインにドットを含まない場合ただちに終了する
-  if (!serverDomain.value.match(/\../)) {
-    emojiLoading.value = false;
-    return null;
+const { isFetching: emojiLoading, data: serverEmojis } = 
+useFetch(
+  computed(() => `https://${serverDomain.value}/api/emojis`), 
+  {
+    updateDataOnError: true,
+    refetch: true,
+    immediate: true,
+    timeout: 500,
+    afterFetch: (ctx) => {
+      ctx.data = ctx.data?.emojis;
+      return ctx;
+    },
   }
-  try {
-    const request = await fetch(`https://${serverDomain.value}/api/emojis`);
-    if (!request.ok || request.status !== 200) throw new Error("Request failed");
-    const result = await request.json();
-    emojiLoading.value = false;
-    return result.emojis;
-  } catch {
-    emojiLoading.value = false;
-    return null;
-  }
-});
+).get().json();
 
 const preview = computed(() => {
-  let result = "";
+  let result = document.createElement("span");
   for (const object of objects.value) {
-    const parts = object.text.split(":");
-    result += parts.reduce((acm, value, index) => {
-      if (index % 2 == 0) {
-        return acm + value;
+    let objElem = document.createElement("span");
+    let innerContent = object.text.split(":").reduce((acm, value, index) => {
+      if (index % 2 === 0) {
+        let textElem = document.createTextNode(value);
+        return [...acm, textElem];
       } else {
-        return acm + `<img src="${serverEmojis.value?.find((emoji) => emoji.name === value)?.url ?? unknown}" class="emoji" />`;
+        const emoji = serverEmojis.value?.find((emoji) => emoji.name === value);
+        let emojiElem = document.createElement("img");
+        emojiElem.classList.add("emoji");
+        emojiElem.src = emoji?.url ?? unknown;
+        emojiElem.alt = emoji?.name ?? "絵文字ショートコードが不正です";
+        return [...acm, emojiElem];
       }
-    }, "");
+    }, []);
+    innerContent.forEach((elem) => objElem.appendChild(elem));
+
+    for (const effect of object.effects) {
+      let tmp = document.createElement("span");
+      tmp.appendChild(objElem);
+      objElem = tmp;
+      for (const [key, value] of Object.entries(effectsInfo[effect.type].css(effect.attrs))) {
+        objElem.style[key] = value;
+      }
+    }
+
+    result.appendChild(objElem);
+    result.appendChild(document.createElement("br"));
   }
-  return result;
+  return result.outerHTML;
 });
 
 addObject();
@@ -242,7 +316,7 @@ addObject();
 <template>
   <main>
     <div id="sub">
-      <div id="server-info" @click="serverModalOpened = true">
+      <div id="server-info" @click="serverModalOpened = true" role="button">
         サーバー: <span :class="{ invalid: serverEmojis === null }">{{ serverDomain }}</span>
       </div>
     </div>
@@ -283,7 +357,7 @@ addObject();
               </div>
               <div class="object-effect-attr-controls" v-if="Object.keys(effectsInfo[effect.type].attrs).length">
                 <div v-for="(attr, index) in effectsInfo[effect.type].attrs" :key="index">
-                  <label>{{ attr.description }}: <input :type="attr.type" v-model="effect.attrs[index]" /></label>
+                  <label>{{ attr.description }}: <input v-bind="attr.props" v-model="effect.attrs[index]" /></label>
                 </div>
               </div>
             </div>
@@ -296,7 +370,7 @@ addObject();
           <IconTextPlus size="19" style="margin-right: 10px;" />オブジェクトを追加
         </a>
       </div>
-      <div id="left-pane">
+      <div id="right-pane">
         <div id="preview" v-html="preview"></div>
         <a class="block-link button">MFMをみる</a>
       </div>
@@ -406,7 +480,7 @@ main {
 @media screen and (max-width: 600px) {
   #objects {
     width: 100%;
-    height: 50svh;
+    height: 50dvh;
     min-width: unset;
     resize: none;
   }
@@ -474,7 +548,7 @@ main {
   filter: drop-shadow(0px 0px 10px var(--white));
 }
 
-#left-pane {
+#right-pane {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -494,6 +568,10 @@ main {
   scrollbar-gutter: stable;
   word-break: break-word;
   text-wrap: wrap;
+}
+
+#preview * {
+  line-height: inherit;
 }
 
 .emoji {
