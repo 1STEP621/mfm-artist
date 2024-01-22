@@ -11,91 +11,111 @@ addEventListener("DOMContentLoaded", () => {
       description: "ばーん(tada)",
       cssList: (attrs) => {
         return [
-          { "fontSize": "150%", "animation": `tada ${attrs.speed}s linear infinite` },
+          {"fontSize": "150%", "animation": `tada ${attrs.speed}s ${attrs.delay}s linear infinite`},
         ];
       },
       MFM: (text, attrs) => {
         return addMFM("tada", {
-          "speed": attrs.speed === effectsData.tada.defaults.speed ? false : attrs.speed + "s"
+          "speed": attrs.speed === effectsData.tada.defaults.speed ? false : attrs.speed + "s",
+          "delay": attrs.delay === effectsData.tada.defaults.delay ? false : attrs.delay + "s",
         }, text);
       },
       attrSettingHTMLs: {
         speed: () => {
           return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.tada.defaults.speed}" step="any"></div>`;
         },
+        delay: () => {
+          return `<div>遅延:<input type="number" class="delay" placeholder="遅延" min="0" value="${effectsData.tada.defaults.delay}" step="any"></div>`;
+        }
       },
       defaults: {
         speed: 1,
+        delay: 0,
       }
     },
     jelly: {
       description: "もちもち(jelly)",
       cssList: (attrs) => {
         return [
-          { "animation": `jelly ${attrs.speed}s linear infinite` },
+          { "animation": `jelly ${attrs.speed}s ${attrs.delay}s linear infinite` },
         ];
       },
       MFM: (text, attrs) => {
         return addMFM("jelly", {
-          "speed": attrs.speed === effectsData.jelly.defaults.speed ? false : attrs.speed + "s"
+          "speed": attrs.speed === effectsData.jelly.defaults.speed ? false : attrs.speed + "s",
+          "delay": attrs.delay === effectsData.tada.defaults.delay ? false : attrs.delay + "s",
         }, text);
       },
       attrSettingHTMLs: {
         speed: () => {
           return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.jelly.defaults.speed}" step="any"></div>`;
         },
+        delay: () => {
+          return `<div>遅延:<input type="number" class="delay" placeholder="遅延" min="0" value="${effectsData.tada.defaults.delay}" step="any"></div>`;
+        }
       },
       defaults: {
         speed: 1,
+        delay: 0,
       }
     },
     twitch: {
       description: "がたがた(twitch)",
       cssList: (attrs) => {
         return [
-          { "animation": `twitch ${attrs.speed}s linear infinite` },
+          { "animation": `twitch ${attrs.speed}s ${attrs.delay}s linear infinite` },
         ];
       },
       MFM: (text, attrs) => {
         return addMFM("twitch", {
-          "speed": attrs.speed === effectsData.twitch.defaults.speed ? false : attrs.speed + "s"
+          "speed": attrs.speed === effectsData.twitch.defaults.speed ? false : attrs.speed + "s",
+          "delay": attrs.delay === effectsData.tada.defaults.delay ? false : attrs.delay + "s",
         }, text);
       },
       attrSettingHTMLs: {
         speed: () => {
           return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.twitch.defaults.speed}" step="any"></div>`;
         },
+        delay: () => {
+          return `<div>遅延:<input type="number" class="delay" placeholder="遅延" min="0" value="${effectsData.tada.defaults.delay}" step="any"></div>`;
+        }
       },
       defaults: {
         speed: 0.5,
+        delay: 0,
       }
     },
     shake: {
       description: "ぶるぶる(shake)",
       cssList: (attrs) => {
         return [
-          { "animation": `shake ${attrs.speed}s linear infinite` },
+          { "animation": `shake ${attrs.speed}s ${attrs.delay}s linear infinite` },
         ];
       },
       MFM: (text, attrs) => {
         return addMFM("shake", {
-          "speed": attrs.speed === effectsData.shake.defaults.speed ? false : attrs.speed + "s"
+          "speed": attrs.speed === effectsData.shake.defaults.speed ? false : attrs.speed + "s",
+          "delay": attrs.delay === effectsData.tada.defaults.delay ? false : attrs.delay + "s",
         }, text);
       },
       attrSettingHTMLs: {
         speed: () => {
           return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.shake.defaults.speed}" step="any"></div>`;
         },
+        delay: () => {
+          return `<div>遅延:<input type="number" class="delay" placeholder="遅延" min="0" value="${effectsData.tada.defaults.delay}" step="any"></div>`;
+        }
       },
       defaults: {
         speed: 0.5,
+        delay: 0,
       }
     },
     spin: {
       description: "くるくる(spin)",
       cssList: (attrs) => {
         return [
-          { "animation": `spin-${attrs.direction} ${attrs.speed}s linear infinite ${attrs.behavior} ` },
+          { "animation": `spin-${attrs.direction} ${attrs.speed}s ${attrs.delay}s linear infinite ${attrs.behavior} ` },
         ];
       },
       MFM: (text, attrs) => {
@@ -105,7 +125,8 @@ addEventListener("DOMContentLoaded", () => {
           "y": attrs.direction === "y",
           "z": false,
           "left": attrs.behavior === "reverse",
-          "alternate": attrs.behavior === "alternate"
+          "alternate": attrs.behavior === "alternate",
+          "delay": attrs.delay === effectsData.tada.defaults.delay ? false : attrs.delay + "s",
         }, text);
       },
       attrSettingHTMLs: {
@@ -126,115 +147,139 @@ addEventListener("DOMContentLoaded", () => {
             <option value="alternate" ${effectsData.spin.defaults.behavior === "selected" ? "selected" : ""}>往復</option>
           </select>`;
         },
+        delay: () => {
+          return `<div>遅延:<input type="number" class="delay" placeholder="遅延" min="0" value="${effectsData.tada.defaults.delay}" step="any"></div>`;
+        }
       },
       defaults: {
         speed: 1.5,
         direction: "z",
         behavior: "normal",
+        delay: 0,
       },
     },
     jump: {
       description: "ぴょんぴょん(jump)",
       cssList: (attrs) => {
         return [
-          { 'animation': `jump ${attrs.speed}s linear infinite` }
+          { 'animation': `jump ${attrs.speed}s ${attrs.delay}s linear infinite` }
         ];
       },
       MFM: (text, attrs) => {
         return addMFM("jump", {
-          "speed": attrs.speed === effectsData.jump.defaults.speed ? false : attrs.speed + "s"
+          "speed": attrs.speed === effectsData.jump.defaults.speed ? false : attrs.speed + "s",
+          "delay": attrs.delay === effectsData.tada.defaults.delay ? false : attrs.delay + "s",
         }, text);
       },
       attrSettingHTMLs: {
         speed: () => {
           return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.jump.defaults.speed}" step="any"></div>`;
         },
+        delay: () => {
+          return `<div>遅延:<input type="number" class="delay" placeholder="遅延" min="0" value="${effectsData.tada.defaults.delay}" step="any"></div>`;
+        }
       },
       defaults: {
         speed: 0.75,
+        delay: 0,
       },
     },
     bounce: {
       description: "ぴょんもち(bounce)",
       cssList: (attrs) => {
         return [
-          { "animation": `bounce ${attrs.speed}s linear infinite` },
+          { "animation": `bounce ${attrs.speed}s ${attrs.delay}s linear infinite` },
         ];
       },
       MFM: (text, attrs) => {
         return addMFM("bounce", {
-          "speed": attrs.speed === effectsData.bounce.defaults.speed ? false : attrs.speed + "s"
+          "speed": attrs.speed === effectsData.bounce.defaults.speed ? false : attrs.speed + "s",
+          "delay": attrs.delay === effectsData.tada.defaults.delay ? false : attrs.delay + "s",
         }, text);
       },
       attrSettingHTMLs: {
         speed: () => {
           return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.bounce.defaults.speed}" step="any"></div>`;
         },
+        delay: () => {
+          return `<div>遅延:<input type="number" class="delay" placeholder="遅延" min="0" value="${effectsData.tada.defaults.delay}" step="any"></div>`;
+        }
       },
       defaults: {
         speed: 0.75,
+        delay: 0,
       },
     },
     sparkle: {
       description: "きらきら(sparkle)",
       cssList: (attrs) => {
         return [
-          { "animation": `sparkle ${attrs.speed}s linear infinite` },
+          { "animation": `sparkle ${attrs.speed}s ${attrs.delay}s linear infinite` },
         ];
       },
       MFM: (text, attrs) => {
         return addMFM("sparkle", {
-          "speed": attrs.speed === effectsData.sparkle.defaults.speed ? false : attrs.speed + "s"
+          "speed": attrs.speed === effectsData.sparkle.defaults.speed ? false : attrs.speed + "s",
+          "delay": attrs.delay === effectsData.tada.defaults.delay ? false : attrs.delay + "s",
         }, text);
       },
       attrSettingHTMLs: {
         speed: () => {
           return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.sparkle.defaults.speed}" step="any"></div>`;
         },
+        delay: () => {
+          return `<div>遅延:<input type="number" class="delay" placeholder="遅延" min="0" value="${effectsData.tada.defaults.delay}" step="any"></div>`;
+        }
       },
       defaults: {
         speed: 1,
+        delay: 0,
       },
     },
     rainbow: {
       description: "ゲーミング(rainbow)",
       cssList: (attrs) => {
         return [
-          { "animation": `rainbow ${attrs.speed}s linear infinite` },
+          { "animation": `rainbow ${attrs.speed}s ${attrs.delay}s linear infinite` },
         ];
       },
       MFM: (text, attrs) => {
         return addMFM("rainbow", {
-          "speed": attrs.speed === effectsData.rainbow.defaults.speed ? false : attrs.speed + "s"
+          "speed": attrs.speed === effectsData.rainbow.defaults.speed ? false : attrs.speed + "s",
+          "delay": attrs.delay === effectsData.tada.defaults.delay ? false : attrs.delay + "s",
         }, text);
       },
       attrSettingHTMLs: {
         speed: () => {
           return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.rainbow.defaults.speed}" step="any"></div>`;
         },
+        delay: () => {
+          return `<div>遅延:<input type="number" class="delay" placeholder="遅延" min="0" value="${effectsData.tada.defaults.delay}" step="any"></div>`;
+        }
       },
       defaults: {
         speed: 1,
+        delay: 0,
       }
     },
     parallel: {
       description: "平行移動(spin + position)",
       cssList: (attrs) => {
         let res = [];
-        res = res.concat(effectsData.spin.cssList({ speed: attrs.speed, behavior: "reverse", direction: "z" }));
+        res = res.concat(effectsData.spin.cssList({ speed: attrs.speed, behavior: "reverse", direction: "z", delay: attrs.delay }));
         res = res.concat(effectsData.position.cssList({ x: attrs.distance, y: 0 }));
-        res = res.concat(effectsData.spin.cssList({ speed: attrs.speed / 2, behavior: "normal", direction: "z" }));
+        res = res.concat(effectsData.spin.cssList({ speed: attrs.speed / 2, behavior: "normal", direction: "z", delay: attrs.delay }));
         res = res.concat(effectsData.position.cssList({ x: attrs.distance, y: 0 }));
-        res = res.concat(effectsData.spin.cssList({ speed: attrs.speed, behavior: "reverse", direction: "z" }));
+        res = res.concat(effectsData.spin.cssList({ speed: attrs.speed, behavior: "reverse", direction: "z", delay: attrs.delay }));
         return res;
       },
       MFM: (text, attrs) => {
         let res = text;
-        res = effectsData.spin.MFM(res, { speed: attrs.speed, behavior: "reverse", direction: "z" });
+        res = effectsData.spin.MFM(res, { speed: attrs.speed, behavior: "reverse", direction: "z", delay: attrs.delay });
         res = effectsData.position.MFM(res, { x: attrs.distance, y: 0 });
-        res = effectsData.spin.MFM(res, { speed: attrs.speed / 2, behavior: "normal", direction: "z" });
+        res = effectsData.spin.MFM(res, { speed: attrs.speed / 2, behavior: "normal", direction: "z", delay: attrs.delay });
         res = effectsData.position.MFM(res, { x: attrs.distance, y: 0 });
-        res = effectsData.spin.MFM(res, { speed: attrs.speed, behavior: "reverse", direction: "z" });
+        res = effectsData.spin.MFM(res, { speed: attrs.speed, behavior: "reverse", direction: "z", delay: attrs.delay });
         return res;
       },
       attrSettingHTMLs: {
@@ -244,10 +289,14 @@ addEventListener("DOMContentLoaded", () => {
         distance: () => {
           return `<div>距離:<input type="number" class="distance" placeholder="距離" value="${effectsData.parallel.defaults.distance}" step="any"></div>`;
         },
+        delay: () => {
+          return `<div>遅延:<input type="number" class="delay" placeholder="遅延" min="0" value="${effectsData.tada.defaults.delay}" step="any"></div>`;
+        }
       },
       defaults: {
         speed: 1,
         distance: 1,
+        delay: 0,
       }
     },
     blink: {
@@ -255,20 +304,20 @@ addEventListener("DOMContentLoaded", () => {
       cssList: (attrs) => {
         let res = [];
         res = res.concat(effectsData.position.cssList({ x: 0, y: 999999 }));
-        res = res.concat(effectsData.bounce.cssList({ speed: attrs.speed }));
+        res = res.concat(effectsData.bounce.cssList({ speed: attrs.speed, delay: attrs.delay }));
         res = res.concat(effectsData.position.cssList({ x: 0, y: -999999 }));
         res = res.concat(effectsData.flip.cssList({ h: false, v: true }));
-        res = res.concat(effectsData.bounce.cssList({ speed: attrs.speed }));
+        res = res.concat(effectsData.bounce.cssList({ speed: attrs.speed, delay: attrs.delay }));
         res = res.concat(effectsData.flip.cssList({ h: false, v: true }));
         return res;
       },
       MFM: (text, attrs) => {
         let res = text;
         res = effectsData.position.MFM(res, { x: 0, y: 999999 });
-        res = effectsData.bounce.MFM(res, { speed: attrs.speed });
+        res = effectsData.bounce.MFM(res, { speed: attrs.speed, delay: attrs.delay });
         res = effectsData.position.MFM(res, { x: 0, y: -999999 });
         res = effectsData.flip.MFM(res, { h: false, v: true });
-        res = effectsData.bounce.MFM(res, { speed: attrs.speed });
+        res = effectsData.bounce.MFM(res, { speed: attrs.speed, delay: attrs.delay });
         res = effectsData.flip.MFM(res, { h: false, v: true });
         return res;
       },
@@ -276,9 +325,13 @@ addEventListener("DOMContentLoaded", () => {
         speed: () => {
           return `<div>速さ:<input type="number" class="speed" placeholder="速さ" min="0" value="${effectsData.blink.defaults.speed}" step="any"></div>`;
         },
+        delay: () => {
+          return `<div>遅延:<input type="number" class="delay" placeholder="遅延" min="0" value="${effectsData.tada.defaults.delay}" step="any"></div>`;
+        }
       },
       defaults: {
         speed: 0.75,
+        delay: 0,
       }
     },
     blur: {
@@ -451,8 +504,58 @@ addEventListener("DOMContentLoaded", () => {
         x: 1,
         y: 1
       }
+    },
+    border: {
+      description: "枠線(border)",
+      cssList: (attrs) => {
+        return [
+          { "border": `${attrs.width}px ${attrs.style} ${attrs.color}`, "border-radius": `${attrs.radius}px`, "overflow": `${attrs.noclip ? "visible" : "clip" }` },
+        ];
+      },
+      MFM: (text, attrs) => {
+        return addMFM("border", {
+          "width": attrs.width === effectsData.border.defaults.width ? false : attrs.width,
+          "style": attrs.style === effectsData.border.defaults.style ? false : attrs.style,
+          "color": attrs.color === effectsData.border.defaults.color ? false : attrs.color.slice(1, undefined),
+          "radius": attrs.radius === effectsData.border.defaults.radius ? false : attrs.radius,
+          "noclip": attrs.noclip === effectsData.border.defaults.noclip ? false : attrs.noclip,
+        }, text);
+      },
+      attrSettingHTMLs: {
+        width: () => {
+          return `<div>幅:<input type="number" class="width" placeholder="幅" min="0" value="${effectsData.border.defaults.width}" step="any"></div>`;
+        },
+        style: () => {
+          return `<select class="style">
+            <option value="solid" ${effectsData.border.defaults.style === "solid" ? "selected" : ""}>実線</option>
+            <option value="dashed" ${effectsData.border.defaults.style === "dashed" ? "selected" : ""}>破線</option>
+            <option value="dotted" ${effectsData.border.defaults.style === "dotted" ? "selected" : ""}>点線</option>
+            <option value="double" ${effectsData.border.defaults.style === "double" ? "selected" : ""}>二重線</option>
+            <option value="groove" ${effectsData.border.defaults.style === "groove" ? "selected" : ""}>浮き出し1</option>
+            <option value="ridge" ${effectsData.border.defaults.style === "ridge" ? "selected" : ""}>浮き出し2</option>
+            <option value="inset" ${effectsData.border.defaults.style === "inset" ? "selected" : ""}>浮き出し3</option>
+            <option value="outset" ${effectsData.border.defaults.style === "outset" ? "selected" : ""}>浮き出し4</option>
+          </select>`;
+        },
+        color: () => {
+          return `<input type="text" class="color pickr" placeholder="色" value="${effectsData.border.defaults.color}">`;
+        },
+        radius: () => {
+          return `<div>角丸:<input type="number" class="radius" placeholder="角丸" min="0" value="${effectsData.border.defaults.radius}" step="any"></div>`;
+        },
+        noclip: () => {
+          return `<label><input type="checkbox" class="noclip">はみ出す</label>`;
+        },
+      },
+      defaults: {
+        width: 1,
+        style: "solid",
+        color: "#86b300",
+        radius: 0,
+        noclip: false,
+      }
     }
-  }
+  };
   let domain;
   let emojis;
   let objects = {};
@@ -553,38 +656,7 @@ addEventListener("DOMContentLoaded", () => {
       const objectDownElem = document.querySelectorAll(".object-down");
       const addEffectElem = document.querySelectorAll(".add-effect");
       const pickrElems = document.querySelectorAll(".pickr");
-      dispatchEventAll(pickrElems, "destroy");
-      pickrElems.forEach((pickrElem) => {
-        const pickrObj = Pickr.create({
-          el: pickrElem,
-          theme: "nano",
-          useAsButton: true,
-          default: pickrElem.value,
-          components: {
-            preview: true,
-            opacity: true,
-            hue: true,
-            interaction: {
-              hex: true,
-              hsva: true,
-              input: true,
-              clear: false,
-              save: false,
-            },
-          },
-        });
-        pickrObj.on("change", (color) => {
-          const HEXA = color.toHEXA();
-          const HSVA = color.toHSVA();
-          pickrElem.value = HEXA[3] ? ("#" + HEXA.map(value => value.slice(0, 1)).join("").toLowerCase()) : (HEXA.toString().toLowerCase());
-          pickrElem.style.backgroundColor = pickrElem.value;
-          pickrElem.style.color = HSVA[2] < 70 * HSVA[3] ? "var(--white)" : "var(--black)";
-          pickrElem.dispatchEvent(new Event("input"));
-        });
-        pickrElem.addEventListener("destroy", () => {
-          pickrObj.destroyAndRemove();
-        });
-      });
+      initPickr(pickrElems);
 
       objects[id] = {
         text: "",
@@ -605,8 +677,9 @@ addEventListener("DOMContentLoaded", () => {
       };
 
       onEventAll(objectDeleteElem, "click", (e) => {
+        const pickrElems = document.querySelectorAll(".pickr");
+        initPickr(pickrElems);
         const thisObjectElem = e.target.closest(".object");
-        dispatchEventAll(thisObjectElem.querySelectorAll(".pickr"), "destroy");
         delete objects[thisObjectElem.dataset.id];
         thisObjectElem.remove();
         render(objects);
@@ -691,6 +764,8 @@ addEventListener("DOMContentLoaded", () => {
           [objects[e.target.closest(".object").dataset.id].effects[thisEffectId], objects[e.target.closest(".object").dataset.id].effects[prevEffectId]] = [prevEffect, thisEffect];
           thisEffectElem.closest(".object-effects-wrapper").insertBefore(thisEffectElem, prevEffectElem);
           [prevEffectElem.dataset.id, thisEffectElem.dataset.id] = [thisEffectId, prevEffectId];
+          const pickrElems = document.querySelectorAll(".pickr");
+          initPickr(pickrElems);
           render();
           generateMFM();
         });
@@ -704,12 +779,16 @@ addEventListener("DOMContentLoaded", () => {
           [objects[e.target.closest(".object").dataset.id].effects[thisEffectId], objects[e.target.closest(".object").dataset.id].effects[nextEffectId]] = [nextEffect, thisEffect];
           thisEffectElem.closest(".object-effects-wrapper").insertBefore(nextEffectElem, thisEffectElem);
           [nextEffectElem.dataset.id, thisEffectElem.dataset.id] = [thisEffectId, nextEffectId];
+          const pickrElems = document.querySelectorAll(".pickr");
+          initPickr(pickrElems);
           render();
           generateMFM();
         });
         onEventAll(effectDeleteElem, "click", (e) => {
           delete objects[e.target.closest(".object").dataset.id].effects[e.target.closest(".object-effect").dataset.id];
           e.target.closest(".object-effect").remove();
+          const pickrElems = document.querySelectorAll(".pickr");
+          initPickr(pickrElems);
           render();
           generateMFM();
         });
@@ -728,6 +807,9 @@ addEventListener("DOMContentLoaded", () => {
           Object.values(effectsData[effectType]?.attrSettingHTMLs || []).forEach((attrSettingHTML) => {
             thisEffectSettingElem.insertAdjacentHTML("beforeend", attrSettingHTML());
           });
+
+          const pickrElems = document.querySelectorAll(".pickr");
+          initPickr(pickrElems);
 
           onEventAll(thisEffectSettingElem.querySelectorAll("input, select"), "input", (e) => {
             const thisObjectId = e.target.closest(".object").dataset.id;
@@ -876,17 +958,46 @@ addEventListener("DOMContentLoaded", () => {
     return `<${text}>${innerText}</${text}>`;
   }
 
+  function initPickr(pickrElems) {
+    pickrElems.forEach((pickrElem) => {
+      pickrElem.dispatchEvent(new Event("destroy"));
+      const pickrObj = Pickr.create({
+        el: pickrElem,
+        theme: "nano",
+        useAsButton: true,
+        default: pickrElem.value,
+        components: {
+          preview: true,
+          opacity: true,
+          hue: true,
+          interaction: {
+            hex: true,
+            hsva: true,
+            input: true,
+            clear: false,
+            save: false,
+          },
+        },
+      });
+      pickrObj.on("change", (color) => {
+        const HEXA = color.toHEXA();
+        const HSVA = color.toHSVA();
+        pickrElem.value = HEXA[3] ? ("#" + HEXA.map(value => value.slice(0, 1)).join("").toLowerCase()) : (HEXA.toString().toLowerCase());
+        pickrElem.style.backgroundColor = pickrElem.value;
+        pickrElem.style.color = HSVA[2] < 70 * HSVA[3] ? "var(--white)" : "var(--black)";
+        pickrElem.dispatchEvent(new Event("input"));
+      });
+      pickrElem.addEventListener("destroy", () => {
+        pickrObj.destroyAndRemove();
+      });
+    });
+  }
+
   // -------------------------------ユーティリティ--------------------------------
   // removeEventListenerがうまく動いてくれなかったので、代わりにelement.onclick
   function onEventAll(elems, event, listener) {
     elems.forEach((elem) => {
       elem["on" + event] = listener;
-    });
-  }
-
-  function dispatchEventAll(elems, event) {
-    elems.forEach((elem) => {
-      elem.dispatchEvent(new Event(event));
     });
   }
 });
